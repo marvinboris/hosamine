@@ -1,0 +1,122 @@
+{
+  "nav": {
+    "services": "Services",
+    "about": "About",
+    "clients": "Clients",
+    "contact": "Contact",
+    "cta": "Request a diagnosis"
+  },
+  "hero": {
+    "badge": "Environmental & agricultural solutions · Douala, Cameroon",
+    "headline_1": "Certified",
+    "headline_2": "expertise.",
+    "headline_accent": "Guaranteed",
+    "headline_3": "results.",
+    "sub": "Public hygiene, phytosanitary treatments and sanitation for businesses and institutions across Cameroon.",
+    "cta_primary": "Discover our services",
+    "cta_secondary": "Request a quote",
+    "cred_1": "5 years of experience",
+    "cred_2": "MINADER · MINSANTE approved",
+    "cred_3": "Port of Douala official partner",
+    "cred_4": "50+ corporate clients"
+  },
+  "services": {
+    "label": "Our Services",
+    "title": "Four areas of expertise for a healthy environment",
+    "learn_more": "Learn more",
+    "s1_title": "Public Hygiene",
+    "s1_desc": "Pest elimination, complete disinfection, and professional cleaning for businesses, hospitals and institutions.",
+    "s1_i1": "Insect control (cockroaches, mosquitoes, ants, flies)",
+    "s1_i2": "Rodent control and management",
+    "s1_i3": "Surface and premises disinfection",
+    "s1_i4": "Professional and post-construction cleaning",
+    "s1_i5": "Waste collection and management",
+    "s2_title": "Phytosanitary Treatments",
+    "s2_desc": "Certified fumigation for international trade and agricultural crop protection.",
+    "s2_i1": "Container fumigation (PAD/ISPM-15 standards)",
+    "s2_i2": "Tarp and storage fumigation",
+    "s2_i3": "Wood and crop treatments",
+    "s3_title": "Sanitation",
+    "s3_desc": "Sanitary infrastructure and water access for businesses and rural communities.",
+    "s3_i1": "Septic tank pumping",
+    "s3_i2": "Drainage channel cleaning",
+    "s3_i3": "Boreholes and drinking water points",
+    "s4_title": "Training",
+    "s4_desc": "Agricultural and environmental capacity building for NGOs and institutions.",
+    "s4_i1": "Sustainable agriculture and natural resources",
+    "s4_i2": "Water point management and sanitation",
+    "s4_i3": "Participatory community workshops"
+  },
+  "stats": {
+    "v1": "5", "l1": "years of experience",
+    "v2": "50", "l2": "corporate clients",
+    "v3": "3", "l3": "official approvals",
+    "v4": "4", "l4": "service areas"
+  },
+  "about": {
+    "label": "About us",
+    "title": "Official approval.\nField expertise.",
+    "body": "Since 2020, Hosamine SARL supports businesses, healthcare institutions and agricultural stakeholders across Cameroon with certified environmental solutions. Our teams operate in Douala and across the region.",
+    "m1_title": "Mission and values",
+    "m1_body": "Rigor, responsiveness, compliance with national and international sanitary and environmental standards.",
+    "m2_title": "Sectors served",
+    "m2_body": "Oil & gas, banking, healthcare, logistics, agro-industry, development organizations.",
+    "certs_title": "Official approvals & partnerships",
+    "c1_name": "MINADER",
+    "c1_desc": "Ministry of Agriculture and Rural Development",
+    "c2_name": "MINSANTE",
+    "c2_desc": "Ministry of Public Health",
+    "c3_name": "Port of Douala",
+    "c3_desc": "Official container fumigation partner"
+  },
+  "clients": {
+    "label": "References",
+    "title": "They trust us"
+  },
+  "testimonials": {
+    "label": "Testimonials",
+    "title": "What our clients say",
+    "t1_text": "Partner for 3 years, fully satisfied with public hygiene, sanitation and phytosanitary services. Serious and professional.",
+    "t1_name": "Production Manager",
+    "t1_company": "SAICAM",
+    "t2_text": "Every request is handled quickly, with great attention to detail and strict compliance with hygiene and safety standards.",
+    "t2_name": "Pamela PENE",
+    "t2_role": "QHSE Coordinator",
+    "t2_company": "NOVIA Industries",
+    "t3_text": "Exemplary professionalism and unwavering responsiveness for our disinfection services. We recommend Hosamine without hesitation.",
+    "t3_name": "Sali Yougouda",
+    "t3_role": "HR Director",
+    "t3_company": "UBA"
+  },
+  "partners": {
+    "label": "Approved partners & suppliers"
+  },
+  "cta": {
+    "title": "Ready to sanitize\nyour environment?",
+    "sub": "Contact us for a free diagnosis. Our experts operate in Douala and across the Littoral region.",
+    "btn_phone": "+237 677 550 011",
+    "btn_email": "contact@hosamine.net"
+  },
+  "footer": {
+    "tagline": "Expert in Environmental and Agricultural Solutions",
+    "address": "Deido, Rue Epee Ekwalla, Douala",
+    "col_services": "Services",
+    "col_company": "Company",
+    "col_follow": "Follow us",
+    "lnk_about": "About",
+    "lnk_clients": "Our clients",
+    "lnk_partners": "Partners",
+    "lnk_blog": "Blog",
+    "copyright": "© 2025 Hosamine SARL. All rights reserved."
+  },
+  "chatbot": {
+    "name": "Hosamine Assistant",
+    "status": "Online · Replies within minutes",
+    "greeting": "Hello! How can I help you? Choose an option or ask your question.",
+    "qr1": "Our services",
+    "qr2": "Request a quote",
+    "qr3": "Book appointment",
+    "qr4": "Contact us",
+    "placeholder": "Write your message..."
+  }
+}

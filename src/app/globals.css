@@ -1,26 +1,62 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
+/* ─── Design Tokens ─────────────────────────────────────────── */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Greens */
+  --color-g-900: oklch(20% 0.10 145);
+  --color-g-800: oklch(26% 0.11 145);
+  --color-g-700: oklch(33% 0.12 145);
+  --color-g-600: oklch(40% 0.13 145);
+  --color-g-500: oklch(52% 0.13 145);
+  --color-g-400: oklch(65% 0.11 145);
+  --color-g-200: oklch(88% 0.05 145);
+  --color-g-100: oklch(95% 0.018 145);
+  --color-g-50:  oklch(98.5% 0.007 145);
+
+  /* Ambers */
+  --color-a-600: oklch(55% 0.16 60);
+  --color-a-500: oklch(70% 0.17 60);
+  --color-a-400: oklch(80% 0.13 60);
+  --color-a-100: oklch(96% 0.04 60);
+
+  /* Semantic */
+  --color-border: oklch(87% 0.016 145);
+  --color-text:   oklch(18% 0.010 145);
+  --color-text-2: oklch(46% 0.018 145);
+  --color-text-3: oklch(63% 0.012 145);
+
+  /* Typography */
+  --font-display: 'Sora', system-ui, sans-serif;
+  --font-body:    'Inter', system-ui, sans-serif;
+
+  /* Spacing extras */
+  --spacing-nav: 68px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/* ─── Base ──────────────────────────────────────────────────── */
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body);
+  color: var(--color-text);
+  background: var(--color-g-50);
+  -webkit-font-smoothing: antialiased;
+}
+a { text-decoration: none; color: inherit; }
+
+/* ─── Bilingual ─────────────────────────────────────────────── */
+[data-lang="fr"] .en-only { display: none; }
+[data-lang="en"] .fr-only { display: none; }
+
+/* ─── Section helpers ───────────────────────────────────────── */
+.si {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+@media (min-width: 768px) {
+  .si { padding: 0 2.5rem; }
+}
+@media (min-width: 1024px) {
+  .si { padding: 0 3rem; }
 }

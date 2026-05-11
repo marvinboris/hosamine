@@ -1,0 +1,122 @@
+{
+  "nav": {
+    "services": "Services",
+    "about": "À propos",
+    "clients": "Clients",
+    "contact": "Contact",
+    "cta": "Demander un diagnostic"
+  },
+  "hero": {
+    "badge": "Solutions environnementales & agricoles · Douala, Cameroun",
+    "headline_1": "Expertise",
+    "headline_2": "certifiée.",
+    "headline_accent": "Résultats",
+    "headline_3": "garantis.",
+    "sub": "Hygiène publique, traitements phytosanitaires et assainissement pour les entreprises et institutions du Cameroun.",
+    "cta_primary": "Découvrir nos services",
+    "cta_secondary": "Demander un devis",
+    "cred_1": "5 ans d'expérience",
+    "cred_2": "Agréé MINADER · MINSANTE",
+    "cred_3": "Partenaire Port Autonome de Douala",
+    "cred_4": "50+ entreprises clientes"
+  },
+  "services": {
+    "label": "Nos Services",
+    "title": "Quatre domaines d'expertise pour un environnement sain",
+    "learn_more": "En savoir plus",
+    "s1_title": "Hygiène Publique",
+    "s1_desc": "Élimination des nuisibles, désinfection complète et nettoyage professionnel pour les entreprises, hôpitaux et institutions.",
+    "s1_i1": "Désinsectisation (cafards, moustiques, fourmis, mouches)",
+    "s1_i2": "Dératisation et gestion des rongeurs",
+    "s1_i3": "Désinfection des surfaces et locaux",
+    "s1_i4": "Nettoyage professionnel et post-construction",
+    "s1_i5": "Collecte et gestion des déchets",
+    "s2_title": "Traitements Phytosanitaires",
+    "s2_desc": "Fumigation certifiée pour le commerce international et protection des cultures agricoles.",
+    "s2_i1": "Fumigation de conteneurs (normes PAD/ISPM-15)",
+    "s2_i2": "Fumigation sous bâches et en stockage",
+    "s2_i3": "Traitement des bois et cultures",
+    "s3_title": "Assainissement",
+    "s3_desc": "Infrastructure sanitaire et accès à l'eau pour entreprises et communautés rurales.",
+    "s3_i1": "Vidange de fosses septiques",
+    "s3_i2": "Curage de caniveaux et drains",
+    "s3_i3": "Forages et points d'eau potable",
+    "s4_title": "Formations",
+    "s4_desc": "Renforcement des capacités agricoles et environnementales pour ONG et institutions.",
+    "s4_i1": "Agriculture durable et ressources naturelles",
+    "s4_i2": "Gestion des points d'eau et assainissement",
+    "s4_i3": "Ateliers communautaires participatifs"
+  },
+  "stats": {
+    "v1": "5", "l1": "ans d'expérience",
+    "v2": "50", "l2": "entreprises clientes",
+    "v3": "3", "l3": "agréments officiels",
+    "v4": "4", "l4": "domaines de services"
+  },
+  "about": {
+    "label": "À propos",
+    "title": "Agrément officiel.\nExpertise de terrain.",
+    "body": "Depuis 2020, Hosamine SARL accompagne les entreprises, institutions hospitalières et acteurs agricoles du Cameroun avec des solutions environnementales certifiées. Nos équipes interviennent sur Douala et l'ensemble de la région.",
+    "m1_title": "Missions et valeurs",
+    "m1_body": "Rigueur, réactivité, respect des normes sanitaires et environnementales nationales et internationales.",
+    "m2_title": "Secteurs servis",
+    "m2_body": "Pétrole & gaz, banque, santé, logistique, agro-industrie, organismes de développement.",
+    "certs_title": "Agréments & Partenariats officiels",
+    "c1_name": "MINADER",
+    "c1_desc": "Ministère de l'Agriculture et du Développement Rural",
+    "c2_name": "MINSANTE",
+    "c2_desc": "Ministère de la Santé Publique",
+    "c3_name": "Port Autonome de Douala",
+    "c3_desc": "Partenaire officiel pour la fumigation de conteneurs"
+  },
+  "clients": {
+    "label": "Références",
+    "title": "Ils nous font confiance"
+  },
+  "testimonials": {
+    "label": "Témoignages",
+    "title": "Ce que disent nos clients",
+    "t1_text": "Partenaire depuis 3 ans, entièrement satisfaits des prestations en hygiène publique, assainissement et traitements phytosanitaires. Sérieux et professionnels.",
+    "t1_name": "Responsable Production",
+    "t1_company": "SAICAM",
+    "t2_text": "Chaque demande est traitée rapidement, avec une grande attention aux détails et au respect strict des normes d'hygiène et de sécurité.",
+    "t2_name": "Pamela PENE",
+    "t2_role": "Coordinatrice QHSE",
+    "t2_company": "NOVIA Industries",
+    "t3_text": "Un professionnalisme exemplaire et une réactivité sans faille pour nos services de désinfection. Nous recommandons Hosamine sans hésitation.",
+    "t3_name": "Sali Yougouda",
+    "t3_role": "Directeur RH",
+    "t3_company": "UBA"
+  },
+  "partners": {
+    "label": "Partenaires & Fournisseurs agréés"
+  },
+  "cta": {
+    "title": "Prêt à assainir\nvotre environnement ?",
+    "sub": "Contactez-nous pour un diagnostic gratuit. Nos experts interviennent à Douala et dans toute la région du Littoral.",
+    "btn_phone": "+237 677 550 011",
+    "btn_email": "contact@hosamine.net"
+  },
+  "footer": {
+    "tagline": "Expert en Solutions Environnementales et Agricoles",
+    "address": "Deido, Rue Epee Ekwalla, Douala",
+    "col_services": "Services",
+    "col_company": "Entreprise",
+    "col_follow": "Suivez-nous",
+    "lnk_about": "À propos",
+    "lnk_clients": "Nos clients",
+    "lnk_partners": "Partenaires",
+    "lnk_blog": "Blog",
+    "copyright": "© 2025 Hosamine SARL. Tous droits réservés."
+  },
+  "chatbot": {
+    "name": "Assistant Hosamine",
+    "status": "En ligne · Répond en quelques minutes",
+    "greeting": "Bonjour ! Comment puis-je vous aider ? Choisissez une option ou posez votre question.",
+    "qr1": "Nos services",
+    "qr2": "Demander un devis",
+    "qr3": "Prendre RDV",
+    "qr4": "Nous contacter",
+    "placeholder": "Écrivez votre message..."
+  }
+}

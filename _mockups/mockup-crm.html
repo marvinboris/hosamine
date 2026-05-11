@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hosamine — Gestion Client</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --g900: oklch(16% 0.09 145);
+      --g800: oklch(22% 0.10 145);
+      --g700: oklch(30% 0.11 145);
+      --g600: oklch(40% 0.13 145);
+      --g500: oklch(52% 0.13 145);
+      --g400: oklch(65% 0.11 145);
+      --g200: oklch(88% 0.05 145);
+      --g100: oklch(95% 0.018 145);
+      --g50:  oklch(98% 0.008 145);
+      --a600: oklch(55% 0.16 60);
+      --a500: oklch(70% 0.17 60);
+      --a100: oklch(96% 0.04 60);
+      --r500: oklch(55% 0.18 25);
+      --r100: oklch(95% 0.04 25);
+      --b500: oklch(55% 0.15 240);
+      --b100: oklch(95% 0.04 240);
+      --text:  oklch(18% 0.010 145);
+      --text2: oklch(46% 0.018 145);
+      --text3: oklch(63% 0.012 145);
+      --border: oklch(87% 0.016 145);
+      --fd: 'Sora', system-ui, sans-serif;
+      --fb: 'Inter', system-ui, sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--fb); color: var(--text); background: var(--g50); display: flex; height: 100vh; overflow: hidden; -webkit-font-smoothing: antialiased; }
+    button { cursor: pointer; border: none; background: none; font-family: inherit; }
+    input, textarea, select { font-family: inherit; }
+
+    /* SIDEBAR */
+    .sidebar {
+      width: 240px; flex-shrink: 0; background: var(--g900);
+      display: flex; flex-direction: column; overflow-y: auto;
+    }
+    .sb-brand { padding: 24px 20px 20px; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid oklch(100% 0 0 / 0.07); }
+    .sb-brand-mark { width: 32px; height: 32px; border-radius: 50%; background: var(--g600); display: flex; align-items: center; justify-content: center; font-family: var(--fd); font-weight: 700; color: white; font-size: 0.9rem; }
+    .sb-brand-name { font-family: var(--fd); font-size: 0.95rem; font-weight: 600; color: white; }
+    .sb-brand-tag { font-size: 0.68rem; color: oklch(97% 0 0 / 0.38); margin-top: 1px; }
+    .sb-section { padding: 20px 12px 8px; }
+    .sb-section-label { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: oklch(97% 0 0 / 0.28); padding: 0 8px; margin-bottom: 6px; }
+    .sb-item {
+      display: flex; align-items: center; gap: 10px; padding: 9px 10px;
+      border-radius: 7px; font-size: 0.85rem; font-weight: 500;
+      color: oklch(97% 0 0 / 0.55); transition: all 0.15s; cursor: pointer;
+    }
+    .sb-item:hover { background: oklch(100% 0 0 / 0.06); color: oklch(97% 0 0 / 0.85); }
+    .sb-item.active { background: var(--g700); color: white; }
+    .sb-item-icon { width: 18px; height: 18px; flex-shrink: 0; opacity: 0.7; }
+    .sb-item.active .sb-item-icon { opacity: 1; }
+    .sb-badge { margin-left: auto; padding: 2px 7px; border-radius: 10px; background: var(--a500); color: oklch(18% 0.08 60); font-size: 0.68rem; font-weight: 700; }
+    .sb-user { margin-top: auto; padding: 16px 12px; border-top: 1px solid oklch(100% 0 0 / 0.08); display: flex; align-items: center; gap: 10px; }
+    .sb-avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--g600); display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 700; color: white; flex-shrink: 0; }
+    .sb-user-name { font-size: 0.82rem; font-weight: 600; color: oklch(97% 0 0 / 0.7); }
+    .sb-user-role { font-size: 0.7rem; color: oklch(97% 0 0 / 0.35); }
+
+    /* MAIN */
+    .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+
+    /* TOP BAR */
+    .topbar {
+      padding: 16px 28px; background: white; border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 16px; flex-shrink: 0;
+    }
+    .topbar-title { font-family: var(--fd); font-size: 1.05rem; font-weight: 600; color: var(--text); }
+    .topbar-sub { font-size: 0.82rem; color: var(--text3); margin-left: 4px; }
+    .topbar-right { margin-left: auto; display: flex; align-items: center; gap: 10px; }
+    .btn-sm {
+      padding: 7px 16px; border-radius: 6px; font-size: 0.82rem; font-weight: 600;
+      font-family: var(--fd); transition: all 0.15s;
+    }
+    .btn-primary-sm { background: var(--g600); color: white; }
+    .btn-primary-sm:hover { background: var(--g700); }
+    .btn-outline-sm { border: 1.5px solid var(--border); color: var(--text2); background: white; }
+    .btn-outline-sm:hover { border-color: var(--g400); color: var(--g600); }
+    .search-box {
+      display: flex; align-items: center; gap: 8px;
+      padding: 7px 14px; border: 1.5px solid var(--border); border-radius: 7px;
+      font-size: 0.82rem; color: var(--text3); background: var(--g50); width: 220px;
+    }
+    .search-box input { border: none; background: none; outline: none; color: var(--text); font-size: 0.82rem; width: 100%; }
+
+    /* PIPELINE */
+    .pipeline-container { flex: 1; overflow-x: auto; overflow-y: hidden; padding: 0; display: flex; }
+    .pipeline { display: flex; gap: 0; min-width: max-content; height: 100%; }
+
+    .stage-col {
+      width: 240px; flex-shrink: 0; display: flex; flex-direction: column;
+      border-right: 1px solid var(--border); background: var(--g50);
+    }
+    .stage-col:last-child { border-right: none; }
+    .stage-hd {
+      padding: 14px 16px 12px; background: white; border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    .stage-name { font-family: var(--fd); font-size: 0.78rem; font-weight: 700; color: var(--text); margin-bottom: 4px; display: flex; align-items: center; gap: 8px; }
+    .stage-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .stage-count { font-size: 0.7rem; color: var(--text3); font-weight: 500; }
+    .stage-cards { flex: 1; overflow-y: auto; padding: 12px 10px; display: flex; flex-direction: column; gap: 8px; }
+
+    .card {
+      background: white; border-radius: 8px; padding: 13px 14px;
+      border: 1.5px solid var(--border); cursor: pointer; transition: all 0.15s;
+      box-shadow: 0 1px 3px oklch(20% 0.10 145 / 0.06);
+    }
+    .card:hover { border-color: var(--g400); box-shadow: 0 2px 8px oklch(20% 0.10 145 / 0.1); }
+    .card.selected { border-color: var(--g600); box-shadow: 0 0 0 3px oklch(40% 0.13 145 / 0.12); }
+    .card-name { font-family: var(--fd); font-size: 0.82rem; font-weight: 600; color: var(--text); margin-bottom: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .card-sector { font-size: 0.72rem; color: var(--text3); margin-bottom: 8px; }
+    .card-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 8px; }
+    .tag { padding: 2px 7px; border-radius: 4px; font-size: 0.68rem; font-weight: 600; }
+    .tag-green { background: var(--g100); color: var(--g600); }
+    .tag-amber { background: var(--a100); color: var(--a600); }
+    .tag-red { background: var(--r100); color: var(--r500); }
+    .tag-blue { background: var(--b100); color: var(--b500); }
+    .card-meta { display: flex; align-items: center; justify-content: space-between; }
+    .card-date { font-size: 0.68rem; color: var(--text3); }
+    .card-amount { font-size: 0.72rem; font-weight: 600; color: var(--g600); }
+
+    /* DETAIL PANEL */
+    .detail-panel {
+      width: 360px; flex-shrink: 0; background: white; border-left: 1px solid var(--border);
+      display: flex; flex-direction: column; overflow-y: auto;
+    }
+    .dp-hd {
+      padding: 20px 20px 16px; border-bottom: 1px solid var(--border); flex-shrink: 0;
+      display: flex; align-items: flex-start; gap: 12px;
+    }
+    .dp-avatar { width: 44px; height: 44px; border-radius: 10px; background: var(--g100); display: flex; align-items: center; justify-content: center; font-family: var(--fd); font-weight: 700; color: var(--g600); font-size: 1rem; flex-shrink: 0; }
+    .dp-name { font-family: var(--fd); font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 3px; }
+    .dp-sector { font-size: 0.78rem; color: var(--text3); }
+    .dp-stage { margin-left: auto; }
+    .stage-pill { padding: 4px 10px; border-radius: 20px; font-size: 0.72rem; font-weight: 700; }
+
+    .dp-body { padding: 20px; display: flex; flex-direction: column; gap: 24px; }
+    .dp-section-title { font-family: var(--fd); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text3); margin-bottom: 12px; }
+    .dp-field { margin-bottom: 12px; }
+    .dp-field-label { font-size: 0.72rem; font-weight: 600; color: var(--text3); margin-bottom: 4px; }
+    .dp-field-value { font-size: 0.88rem; color: var(--text); line-height: 1.5; }
+
+    .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+    /* Documents */
+    .doc-item { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border: 1.5px solid var(--border); border-radius: 7px; margin-bottom: 8px; transition: border-color 0.15s; }
+    .doc-item:hover { border-color: var(--g200); }
+    .doc-check { width: 18px; height: 18px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+    .doc-check.done { background: var(--g600); }
+    .doc-check.pending { background: var(--border); }
+    .doc-check.needed { background: var(--a100); border: 1.5px solid var(--a500); }
+    .doc-check svg { display: none; }
+    .doc-check.done svg { display: block; }
+    .doc-name { font-size: 0.82rem; font-weight: 500; color: var(--text); flex: 1; }
+    .doc-date { font-size: 0.7rem; color: var(--text3); }
+
+    /* Timeline */
+    .tl-item { display: flex; gap: 12px; padding-bottom: 16px; position: relative; }
+    .tl-item:last-child { padding-bottom: 0; }
+    .tl-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--g400); flex-shrink: 0; margin-top: 5px; position: relative; z-index: 1; }
+    .tl-dot.active { background: var(--g600); width: 12px; height: 12px; margin-top: 4px; }
+    .tl-item:not(:last-child)::before { content: ''; position: absolute; left: 4px; top: 14px; bottom: 0; width: 2px; background: var(--border); }
+    .tl-content { flex: 1; }
+    .tl-action { font-size: 0.82rem; font-weight: 500; color: var(--text); margin-bottom: 2px; }
+    .tl-date { font-size: 0.72rem; color: var(--text3); }
+
+    /* Actions */
+    .dp-actions { display: flex; flex-wrap: wrap; gap: 8px; padding: 16px 20px; border-top: 1px solid var(--border); flex-shrink: 0; }
+    .action-btn { display: flex; align-items: center; gap: 6px; padding: 8px 14px; border-radius: 7px; font-size: 0.78rem; font-weight: 600; transition: all 0.15s; }
+    .action-phone { background: var(--g100); color: var(--g700); }
+    .action-phone:hover { background: var(--g200); }
+    .action-wa { background: oklch(95% 0.04 155); color: oklch(36% 0.13 155); }
+    .action-wa:hover { background: oklch(90% 0.06 155); }
+    .action-doc { background: var(--b100); color: var(--b500); }
+    .action-doc:hover { background: oklch(90% 0.06 240); }
+    .action-next { background: var(--g600); color: white; }
+    .action-next:hover { background: var(--g700); }
+  </style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sb-brand">
+    <div class="sb-brand-mark">H</div>
+    <div>
+      <div class="sb-brand-name">Hosamine</div>
+      <div class="sb-brand-tag">Gestion Client</div>
+    </div>
+  </div>
+
+  <div class="sb-section">
+    <div class="sb-section-label">CRM</div>
+    <div class="sb-item active">
+      <svg class="sb-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+      Pipeline
+      <span class="sb-badge">12</span>
+    </div>
+    <div class="sb-item">
+      <svg class="sb-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      Suivi J+7
+      <span class="sb-badge">3</span>
+    </div>
+    <div class="sb-item">
+      <svg class="sb-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      Tous les clients
+    </div>
+    <div class="sb-item">
+      <svg class="sb-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      Documents
+    </div>
+  </div>
+
+  <div class="sb-section">
+    <div class="sb-section-label">Facturation</div>
+    <div class="sb-item">
+      <svg class="sb-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      Devis Challenge
+    </div>
+    <div class="sb-item">
+      <svg class="sb-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+      Recouvrement
+      <span class="sb-badge" style="background:var(--r500)">2</span>
+    </div>
+  </div>
+
+  <div class="sb-section">
+    <div class="sb-section-label">Réseaux sociaux</div>
+    <div class="sb-item">
+      <svg class="sb-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      Calendrier
+    </div>
+  </div>
+
+  <div class="sb-user">
+    <div class="sb-avatar">MN</div>
+    <div>
+      <div class="sb-user-name">Marie Nguendo</div>
+      <div class="sb-user-role">Commercial Senior</div>
+    </div>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<div class="main">
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div>
+      <span class="topbar-title">Pipeline Commercial</span>
+      <span class="topbar-sub">— 12 dossiers actifs</span>
+    </div>
+    <div class="topbar-right">
+      <div class="search-box">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" placeholder="Rechercher un client...">
+      </div>
+      <button class="btn-sm btn-outline-sm">Filtrer</button>
+      <button class="btn-sm btn-primary-sm">+ Nouveau client</button>
+    </div>
+  </div>
+
+  <!-- PIPELINE + DETAIL -->
+  <div style="display:flex;flex:1;overflow:hidden">
+
+    <!-- KANBAN -->
+    <div class="pipeline-container">
+      <div class="pipeline">
+
+        <!-- Stage: Nouveau client -->
+        <div class="stage-col">
+          <div class="stage-hd">
+            <div class="stage-name"><div class="stage-dot" style="background:var(--b500)"></div>Nouveau client</div>
+            <div class="stage-count">2 dossiers</div>
+          </div>
+          <div class="stage-cards">
+            <div class="card">
+              <div class="card-name">Brasseries du Cameroun</div>
+              <div class="card-sector">Agro-industrie · Douala</div>
+              <div class="card-tags"><span class="tag tag-blue">Hygiène</span></div>
+              <div class="card-meta"><span class="card-date">Aujourd'hui</span></div>
+            </div>
+            <div class="card">
+              <div class="card-name">Etabl. Kotto &amp; Fils</div>
+              <div class="card-sector">Logistique · Douala</div>
+              <div class="card-tags"><span class="tag tag-green">Phytosanitaire</span></div>
+              <div class="card-meta"><span class="card-date">Hier</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stage: Diagnostic planifié -->
+        <div class="stage-col">
+          <div class="stage-hd">
+            <div class="stage-name"><div class="stage-dot" style="background:var(--g500)"></div>Diagnostic planifié</div>
+            <div class="stage-count">2 dossiers</div>
+          </div>
+          <div class="stage-cards">
+            <div class="card">
+              <div class="card-name">CICAM Douala</div>
+              <div class="card-sector">Industrie textile · Douala</div>
+              <div class="card-tags"><span class="tag tag-green">Dératisation</span></div>
+              <div class="card-meta"><span class="card-date">12 mai</span><span class="card-amount">RDV 14h00</span></div>
+            </div>
+            <div class="card">
+              <div class="card-name">Clinique Bonanjo</div>
+              <div class="card-sector">Santé · Douala</div>
+              <div class="card-tags"><span class="tag tag-blue">Désinfection</span></div>
+              <div class="card-meta"><span class="card-date">14 mai</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stage: Devis envoyé -->
+        <div class="stage-col">
+          <div class="stage-hd">
+            <div class="stage-name"><div class="stage-dot" style="background:var(--a500)"></div>Devis envoyé</div>
+            <div class="stage-count">3 dossiers</div>
+          </div>
+          <div class="stage-cards">
+            <div class="card">
+              <div class="card-name">Port Autonome de Douala</div>
+              <div class="card-sector">Maritime · Douala</div>
+              <div class="card-tags"><span class="tag tag-green">Fumigation</span><span class="tag tag-amber">Prioritaire</span></div>
+              <div class="card-meta"><span class="card-date">8 mai</span><span class="card-amount">2 450 000 XAF</span></div>
+            </div>
+            <div class="card">
+              <div class="card-name">Sté Générale Cameroun</div>
+              <div class="card-sector">Banque · Douala</div>
+              <div class="card-tags"><span class="tag tag-blue">Désinsectisation</span></div>
+              <div class="card-meta"><span class="card-date">9 mai</span><span class="card-amount">780 000 XAF</span></div>
+            </div>
+            <div class="card">
+              <div class="card-name">Maersk Cameroun</div>
+              <div class="card-sector">Logistique · Douala</div>
+              <div class="card-tags"><span class="tag tag-green">Fumigation</span></div>
+              <div class="card-meta"><span class="card-date">10 mai</span><span class="card-amount">1 200 000 XAF</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stage: Avance reçue — SELECTED -->
+        <div class="stage-col">
+          <div class="stage-hd">
+            <div class="stage-name"><div class="stage-dot" style="background:var(--g600)"></div>Avance reçue</div>
+            <div class="stage-count">2 dossiers</div>
+          </div>
+          <div class="stage-cards">
+            <div class="card selected" onclick="">
+              <div class="card-name">NHPC — Nachtigal</div>
+              <div class="card-sector">Énergie / ONG · Nachtigal</div>
+              <div class="card-tags"><span class="tag tag-green">Formation</span><span class="tag tag-amber">Avance reçue</span></div>
+              <div class="card-meta"><span class="card-date">5 mai</span><span class="card-amount">3 200 000 XAF</span></div>
+            </div>
+            <div class="card">
+              <div class="card-name">NOVIA Industries</div>
+              <div class="card-sector">Industrie · Douala</div>
+              <div class="card-tags"><span class="tag tag-green">Hygiène</span></div>
+              <div class="card-meta"><span class="card-date">7 mai</span><span class="card-amount">950 000 XAF</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stage: Prestation en cours -->
+        <div class="stage-col">
+          <div class="stage-hd">
+            <div class="stage-name"><div class="stage-dot" style="background:oklch(60% 0.13 285)"></div>Prestation</div>
+            <div class="stage-count">1 dossier</div>
+          </div>
+          <div class="stage-cards">
+            <div class="card">
+              <div class="card-name">Schlumberger Cameroun</div>
+              <div class="card-sector">Pétrole &amp; Gaz · Douala</div>
+              <div class="card-tags"><span class="tag tag-green">Phytosanitaire</span></div>
+              <div class="card-meta"><span class="card-date">Aujourd'hui</span><span class="card-amount">4 800 000 XAF</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stage: Recouvrement -->
+        <div class="stage-col">
+          <div class="stage-hd">
+            <div class="stage-name"><div class="stage-dot" style="background:var(--r500)"></div>Recouvrement</div>
+            <div class="stage-count">2 dossiers</div>
+          </div>
+          <div class="stage-cards">
+            <div class="card">
+              <div class="card-name">UBA Cameroun</div>
+              <div class="card-sector">Banque · Douala</div>
+              <div class="card-tags"><span class="tag tag-red">En retard J+5</span></div>
+              <div class="card-meta"><span class="card-date">30 avr.</span><span class="card-amount">620 000 XAF</span></div>
+            </div>
+            <div class="card">
+              <div class="card-name">SAICAM</div>
+              <div class="card-sector">Agro-industrie · Douala</div>
+              <div class="card-tags"><span class="tag tag-amber">Délai J+30</span></div>
+              <div class="card-meta"><span class="card-date">2 mai</span><span class="card-amount">1 150 000 XAF</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stage: Suivi J+7 -->
+        <div class="stage-col">
+          <div class="stage-hd">
+            <div class="stage-name"><div class="stage-dot" style="background:var(--g400)"></div>Suivi J+7</div>
+            <div class="stage-count">0 en attente</div>
+          </div>
+          <div class="stage-cards">
+            <div style="padding:16px 8px;text-align:center;color:var(--text3);font-size:0.78rem;line-height:1.6">
+              Aucun suivi en attente.<br>Prochains appels le 17 mai.
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- DETAIL PANEL: NHPC selected -->
+    <div class="detail-panel">
+      <div class="dp-hd">
+        <div class="dp-avatar">NH</div>
+        <div>
+          <div class="dp-name">NHPC — Nachtigal</div>
+          <div class="dp-sector">Énergie / ONG · Nachtigal, Cameroun</div>
+        </div>
+        <div class="dp-stage">
+          <span class="stage-pill tag-amber">Avance reçue</span>
+        </div>
+      </div>
+
+      <div class="dp-body">
+        <!-- Infos client -->
+        <div>
+          <div class="dp-section-title">Informations client</div>
+          <div class="info-grid">
+            <div class="dp-field">
+              <div class="dp-field-label">Localisation</div>
+              <div class="dp-field-value">Nachtigal (Sanaga)</div>
+            </div>
+            <div class="dp-field">
+              <div class="dp-field-label">Secteur</div>
+              <div class="dp-field-value">Énergie hydroélectrique</div>
+            </div>
+            <div class="dp-field">
+              <div class="dp-field-label">Contact</div>
+              <div class="dp-field-value">Alain Mbock<br><span style="color:var(--text3);font-size:0.82rem">Responsable HSE</span></div>
+            </div>
+            <div class="dp-field">
+              <div class="dp-field-label">Téléphone</div>
+              <div class="dp-field-value">+237 699 112 233</div>
+            </div>
+          </div>
+          <div class="dp-field">
+            <div class="dp-field-label">Besoin / Douleur identifiée</div>
+            <div class="dp-field-value">Formation agriculture durable + gestion ressources en eau pour communautés riveraines. Exigence NHPC dans cadre compensation environnementale projet Nachtigal.</div>
+          </div>
+        </div>
+
+        <!-- Devis -->
+        <div>
+          <div class="dp-section-title">Devis Challenge</div>
+          <div style="background:var(--g50);border:1.5px solid var(--border);border-radius:8px;padding:14px">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+              <span style="font-family:var(--fd);font-size:0.82rem;font-weight:600;color:var(--text)">DEV-2025-041</span>
+              <span class="tag tag-amber">Avance versée</span>
+            </div>
+            <div style="font-size:0.78rem;color:var(--text3);margin-bottom:12px">Émis le 30 avr. 2025 · Délai recouvrement: 60 jours</div>
+            <div style="display:flex;justify-content:space-between;margin-bottom:6px">
+              <span style="font-size:0.82rem;color:var(--text2)">Montant total</span>
+              <span style="font-family:var(--fd);font-weight:700;color:var(--text);font-size:0.9rem">3 200 000 XAF</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;margin-bottom:6px">
+              <span style="font-size:0.82rem;color:var(--text2)">Avance reçue (40%)</span>
+              <span style="font-family:var(--fd);font-weight:600;color:var(--g600);font-size:0.85rem">1 280 000 XAF</span>
+            </div>
+            <div style="display:flex;justify-content:space-between">
+              <span style="font-size:0.82rem;color:var(--text2)">Solde à recouvrer</span>
+              <span style="font-family:var(--fd);font-weight:700;color:var(--a600);font-size:0.9rem">1 920 000 XAF</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Documents -->
+        <div>
+          <div class="dp-section-title">Documents à signer</div>
+
+          <div class="doc-item">
+            <div class="doc-check done">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <div class="doc-name">Procès-verbal de traitement</div>
+            <div class="doc-date">Signé 10 mai</div>
+          </div>
+
+          <div class="doc-item">
+            <div class="doc-check pending"></div>
+            <div class="doc-name">Bordereau de réception des travaux</div>
+            <div class="doc-date" style="color:var(--a600);font-weight:600">En attente</div>
+          </div>
+
+          <div class="doc-item">
+            <div class="doc-check needed"></div>
+            <div class="doc-name">Attestation de traitement</div>
+            <div class="doc-date" style="color:var(--text3)">Non démarré</div>
+          </div>
+        </div>
+
+        <!-- Timeline -->
+        <div>
+          <div class="dp-section-title">Historique</div>
+          <div>
+            <div class="tl-item">
+              <div class="tl-dot active"></div>
+              <div class="tl-content">
+                <div class="tl-action">Avance reçue (1 280 000 XAF)</div>
+                <div class="tl-date">5 mai 2025</div>
+              </div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-dot"></div>
+              <div class="tl-content">
+                <div class="tl-action">Devis DEV-2025-041 envoyé et accepté</div>
+                <div class="tl-date">30 avr. 2025</div>
+              </div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-dot"></div>
+              <div class="tl-content">
+                <div class="tl-action">Rendez-vous diagnostic réalisé sur site</div>
+                <div class="tl-date">22 avr. 2025</div>
+              </div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-dot"></div>
+              <div class="tl-content">
+                <div class="tl-action">Nouveau client enregistré</div>
+                <div class="tl-date">18 avr. 2025</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Suivi J+7 -->
+        <div style="background:var(--a100);border:1.5px solid oklch(80% 0.10 60);border-radius:8px;padding:14px">
+          <div style="font-family:var(--fd);font-size:0.8rem;font-weight:700;color:oklch(35% 0.10 60);margin-bottom:6px">Rappel suivi J+7</div>
+          <div style="font-size:0.82rem;color:oklch(40% 0.08 60);line-height:1.55">Appel de suivi prévu le <strong>18 mai 2025</strong> après la prestation prévue le 11 mai.</div>
+          <button style="margin-top:10px;padding:6px 14px;border-radius:5px;background:var(--a600);color:white;font-size:0.75rem;font-weight:600;font-family:var(--fd)">Planifier le rappel</button>
+        </div>
+      </div>
+
+      <!-- ACTIONS -->
+      <div class="dp-actions">
+        <button class="action-btn action-phone">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.89a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16.92"/></svg>
+          Appeler
+        </button>
+        <button class="action-btn action-wa">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+          WhatsApp
+        </button>
+        <button class="action-btn action-doc">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          Documents
+        </button>
+        <button class="action-btn action-next">
+          Faire avancer →
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

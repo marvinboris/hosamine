@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="fr" data-lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hosamine SARL — Expert en Solutions Environnementales et Agricoles</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --g900: oklch(20% 0.10 145);
+      --g800: oklch(26% 0.11 145);
+      --g700: oklch(33% 0.12 145);
+      --g600: oklch(40% 0.13 145);
+      --g500: oklch(52% 0.13 145);
+      --g400: oklch(65% 0.11 145);
+      --g200: oklch(88% 0.05 145);
+      --g100: oklch(95% 0.018 145);
+      --g50:  oklch(98.5% 0.007 145);
+      --a600: oklch(55% 0.16 60);
+      --a500: oklch(70% 0.17 60);
+      --a400: oklch(80% 0.13 60);
+      --a100: oklch(96% 0.04 60);
+      --text:   oklch(18% 0.010 145);
+      --text2:  oklch(46% 0.018 145);
+      --text3:  oklch(63% 0.012 145);
+      --inv:    oklch(97% 0.006 145);
+      --border: oklch(87% 0.016 145);
+      --fd: 'Sora', system-ui, sans-serif;
+      --fb: 'Inter', system-ui, sans-serif;
+      --nav-h: 68px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--fb); color: var(--text); background: var(--g50); -webkit-font-smoothing: antialiased; }
+    a { text-decoration: none; color: inherit; }
+    button { cursor: pointer; border: none; background: none; font-family: inherit; }
+
+    [data-lang="fr"] .en-only { display: none; }
+    [data-lang="en"] .fr-only { display: none; }
+
+    /* NAV */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: var(--nav-h); display: flex; align-items: center; padding: 0 48px;
+      transition: background 0.35s, box-shadow 0.35s;
+    }
+    .nav.scrolled {
+      background: oklch(99% 0.004 145 / 0.96);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 1px 0 var(--border);
+    }
+    .nav-logo { display: flex; align-items: center; gap: 11px; }
+    .nav-logo-mark { display: flex; align-items: center; }
+    .nav-logo-text { display: none; }
+    .logo-img { height: 38px; width: auto; filter: brightness(0) invert(1); transition: filter 0.3s; clip-path: inset(0 0 0 5px); }
+    .nav.scrolled .logo-img { filter: none; }
+    .logo-img-footer { height: 44px; width: auto; filter: brightness(0) invert(1) opacity(0.85); clip-path: inset(0 0 0 5px); }
+    .nav-links { display: flex; gap: 36px; list-style: none; margin: 0 auto; }
+    .nav-links a { font-size: 0.875rem; font-weight: 500; color: oklch(97% 0 0 / 0.8); transition: color 0.2s; }
+    .nav.scrolled .nav-links a { color: var(--text2); }
+    .nav-links a:hover { color: white; }
+    .nav.scrolled .nav-links a:hover { color: var(--g600); }
+    .nav-right { display: flex; align-items: center; gap: 16px; }
+    .lang-toggle { display: flex; border: 1px solid oklch(100% 0 0 / 0.22); border-radius: 20px; overflow: hidden; transition: border-color 0.3s; }
+    .nav.scrolled .lang-toggle { border-color: var(--border); }
+    .lang-btn { padding: 4px 12px; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em; color: oklch(97% 0 0 / 0.5); transition: all 0.2s; }
+    .nav.scrolled .lang-btn { color: var(--text3); }
+    .lang-btn.active { background: oklch(100% 0 0 / 0.15); color: white; }
+    .nav.scrolled .lang-btn.active { background: var(--g600); color: white; }
+    .nav-cta {
+      padding: 8px 20px; background: var(--a500); color: oklch(18% 0.08 60);
+      border-radius: 5px; font-size: 0.85rem; font-weight: 600; font-family: var(--fd);
+      transition: background 0.2s, transform 0.15s;
+    }
+    .nav-cta:hover { background: var(--a600); transform: translateY(-1px); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh; position: relative; display: flex; flex-direction: column;
+      justify-content: center; background: var(--g900); overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: repeating-linear-gradient(
+        -45deg, transparent, transparent 34px,
+        oklch(100% 0 0 / 0.018) 34px, oklch(100% 0 0 / 0.018) 35px
+      );
+    }
+    .hero::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 180px;
+      background: linear-gradient(to bottom, transparent, var(--g50));
+      pointer-events: none;
+    }
+    .hero-content {
+      position: relative; z-index: 1;
+      padding: calc(var(--nav-h) + 40px) 48px 100px;
+      max-width: 960px;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 9px;
+      padding: 6px 14px; border: 1px solid oklch(100% 0 0 / 0.18);
+      border-radius: 20px; margin-bottom: 32px;
+      font-size: 0.75rem; font-weight: 600; color: oklch(97% 0 0 / 0.6);
+      letter-spacing: 0.05em; text-transform: uppercase;
+    }
+    .hero-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--a400); }
+    .hero-headline {
+      font-family: var(--fd); font-size: clamp(3rem, 6vw, 5.2rem);
+      font-weight: 800; line-height: 1.04; letter-spacing: -0.035em;
+      color: var(--inv); margin-bottom: 26px;
+    }
+    .hero-headline em { font-style: normal; color: var(--a400); }
+    .hero-sub {
+      font-size: 1.08rem; color: oklch(97% 0 0 / 0.58);
+      max-width: 500px; line-height: 1.68; margin-bottom: 48px;
+    }
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+    .btn-amber {
+      padding: 14px 28px; background: var(--a500); color: oklch(18% 0.08 60);
+      border-radius: 5px; font-family: var(--fd); font-size: 0.95rem; font-weight: 600;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-amber:hover { background: var(--a600); transform: translateY(-2px); }
+    .btn-ghost-white {
+      padding: 13px 28px; border: 1.5px solid oklch(100% 0 0 / 0.28);
+      color: var(--inv); border-radius: 5px; font-family: var(--fd);
+      font-size: 0.95rem; font-weight: 500; transition: border-color 0.2s, background 0.2s;
+    }
+    .btn-ghost-white:hover { border-color: oklch(100% 0 0 / 0.55); background: oklch(100% 0 0 / 0.05); }
+    .hero-creds {
+      position: absolute; bottom: 52px; left: 48px; right: 48px; z-index: 1;
+      display: flex; align-items: center; flex-wrap: wrap; gap: 4px;
+      font-size: 0.8rem; color: oklch(97% 0 0 / 0.38); font-weight: 500;
+    }
+    .hero-cred-sep { margin: 0 14px; color: oklch(97% 0 0 / 0.18); }
+
+    /* SECTION BASE */
+    .si { max-width: 1200px; margin: 0 auto; padding: 0 48px; }
+    .sec-label {
+      display: inline-block; font-size: 0.73rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase; color: var(--g500); margin-bottom: 12px;
+    }
+    .sec-title {
+      font-family: var(--fd); font-size: clamp(1.85rem, 3vw, 2.6rem);
+      font-weight: 700; line-height: 1.15; letter-spacing: -0.022em; color: var(--text);
+    }
+    .sec-sub { margin-top: 14px; font-size: 1rem; color: var(--text2); max-width: 520px; }
+
+    /* SERVICES */
+    .services { padding: 100px 0; background: white; }
+    .services .si > .sec-hd { margin-bottom: 56px; }
+    .services-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border);
+    }
+    .svc { padding: 52px 48px; transition: transform 0.2s; position: relative; }
+    .svc-num {
+      font-family: var(--fd); font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.1em; margin-bottom: 16px;
+    }
+    .svc-title { font-family: var(--fd); font-size: 1.45rem; font-weight: 700; line-height: 1.2; letter-spacing: -0.015em; margin-bottom: 14px; }
+    .svc-desc { font-size: 0.9rem; line-height: 1.72; margin-bottom: 22px; }
+    .svc-items { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .svc-items li { font-size: 0.85rem; display: flex; align-items: center; gap: 8px; }
+    .svc-items li::before { content: ''; display: inline-block; width: 4px; height: 4px; border-radius: 50%; flex-shrink: 0; }
+    .svc-link { display: inline-flex; align-items: center; gap: 6px; margin-top: 28px; font-size: 0.85rem; font-weight: 600; }
+    .svc-link::after { content: '→'; }
+
+    .svc-1 { background: var(--g800); grid-row: span 2; }
+    .svc-1 .svc-num { color: oklch(97% 0 0 / 0.28); }
+    .svc-1 .svc-title { color: white; }
+    .svc-1 .svc-desc { color: oklch(97% 0 0 / 0.62); }
+    .svc-1 .svc-items li { color: oklch(97% 0 0 / 0.78); }
+    .svc-1 .svc-items li::before { background: var(--a400); }
+    .svc-1 .svc-link { color: var(--a400); }
+
+    .svc-2 { background: var(--g100); }
+    .svc-2 .svc-num { color: var(--g500); }
+    .svc-2 .svc-title { color: var(--g700); }
+    .svc-2 .svc-desc { color: var(--text2); }
+    .svc-2 .svc-items li { color: var(--text); }
+    .svc-2 .svc-items li::before { background: var(--g500); }
+    .svc-2 .svc-link { color: var(--g600); }
+
+    .svc-3 { background: white; }
+    .svc-3 .svc-num { color: var(--text3); }
+    .svc-3 .svc-title { color: var(--text); }
+    .svc-3 .svc-desc { color: var(--text2); }
+    .svc-3 .svc-items li { color: var(--text2); }
+    .svc-3 .svc-items li::before { background: var(--text3); }
+    .svc-3 .svc-link { color: var(--g600); }
+
+    .svc-4 { background: var(--a100); }
+    .svc-4 .svc-num { color: var(--a600); }
+    .svc-4 .svc-title { color: oklch(28% 0.08 60); }
+    .svc-4 .svc-desc { color: oklch(38% 0.06 60); }
+    .svc-4 .svc-items li { color: oklch(35% 0.07 60); }
+    .svc-4 .svc-items li::before { background: var(--a600); }
+    .svc-4 .svc-link { color: var(--a600); }
+
+    /* STATS */
+    .stats { background: var(--g600); padding: 60px 0; }
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); padding: 0 48px; max-width: 1200px; margin: 0 auto; }
+    .stat { padding: 0 32px; border-right: 1px solid oklch(100% 0 0 / 0.18); text-align: center; }
+    .stat:first-child { padding-left: 0; }
+    .stat:last-child { border-right: none; }
+    .stat-val { font-family: var(--fd); font-size: 3.2rem; font-weight: 800; color: white; line-height: 1; letter-spacing: -0.04em; margin-bottom: 8px; }
+    .stat-val sup { font-size: 1.5rem; }
+    .stat-lbl { font-size: 0.83rem; color: oklch(97% 0 0 / 0.62); font-weight: 500; }
+
+    /* ABOUT */
+    .about { padding: 100px 0; background: var(--g50); }
+    .about-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .about-visual {
+      background: var(--g800); border-radius: 12px; padding: 48px 44px;
+      position: relative; overflow: hidden;
+    }
+    .about-visual::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: repeating-linear-gradient(-45deg, transparent, transparent 28px, oklch(100% 0 0 / 0.025) 28px, oklch(100% 0 0 / 0.025) 29px);
+    }
+    .about-visual-content { position: relative; z-index: 1; }
+    .about-cert { display: flex; align-items: flex-start; gap: 14px; padding: 16px 0; border-bottom: 1px solid oklch(100% 0 0 / 0.1); }
+    .about-cert:last-child { border-bottom: none; }
+    .about-cert-badge {
+      width: 40px; height: 40px; border-radius: 8px; background: var(--a500);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 0.78rem; color: oklch(18% 0.08 60); flex-shrink: 0;
+      font-family: var(--fd); letter-spacing: -0.01em;
+    }
+    .about-cert-name { font-family: var(--fd); font-size: 0.9rem; font-weight: 600; color: white; margin-bottom: 3px; }
+    .about-cert-desc { font-size: 0.78rem; color: oklch(97% 0 0 / 0.5); }
+    .about-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 32px; }
+    .about-tag {
+      padding: 6px 14px; background: oklch(100% 0 0 / 0.07);
+      border-radius: 20px; font-size: 0.78rem; font-weight: 500;
+      color: oklch(97% 0 0 / 0.65);
+    }
+
+    /* CLIENTS */
+    .clients { padding: 96px 0; background: white; }
+    .clients-grid {
+      display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px;
+      background: var(--border); border: 1px solid var(--border);
+      border-radius: 10px; overflow: hidden;
+    }
+    .client-item {
+      background: white; padding: 30px 20px;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s;
+    }
+    .client-item:hover { background: var(--g50); }
+    .client-logo { font-family: var(--fd); font-weight: 700; font-size: 0.88rem; letter-spacing: 0.02em; color: var(--text3); transition: color 0.2s; }
+    .client-item:hover .client-logo { color: var(--g600); }
+    .client-logo-img { height: 36px; width: 100%; object-fit: contain; filter: grayscale(1) opacity(0.55); transition: filter 0.2s; mix-blend-mode: multiply; }
+    .client-item:hover .client-logo-img { filter: grayscale(0) opacity(1); }
+
+    /* TESTIMONIALS */
+    .testimonials { padding: 100px 0; background: var(--g50); }
+    .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 52px; }
+    .testi-qmark { font-family: Georgia, serif; font-size: 6rem; line-height: 0.7; color: var(--a400); display: block; margin-bottom: 12px; letter-spacing: -0.04em; }
+    .testi-text { font-size: 0.93rem; line-height: 1.78; color: var(--text); font-style: italic; margin-bottom: 24px; }
+    .testi-author { border-top: 1px solid var(--border); padding-top: 16px; }
+    .testi-name { font-family: var(--fd); font-size: 0.88rem; font-weight: 600; color: var(--text); margin-bottom: 3px; }
+    .testi-role { font-size: 0.78rem; color: var(--text3); }
+
+    /* PARTNERS */
+    .partners { padding: 60px 0; background: white; }
+    .partners-lbl { text-align: center; font-size: 0.73rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text3); margin-bottom: 36px; }
+    .partners-row { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; }
+    .partner-item { padding: 12px 32px; border-right: 1px solid var(--border); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.04em; color: var(--text3); transition: color 0.2s; }
+    .partner-item:last-child { border-right: none; }
+    .partner-item:hover { color: var(--g600); }
+
+    /* CTA */
+    .cta-sec { padding: 104px 0; background: var(--g800); position: relative; overflow: hidden; }
+    .cta-sec::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: repeating-linear-gradient(45deg, transparent, transparent 34px, oklch(100% 0 0 / 0.015) 34px, oklch(100% 0 0 / 0.015) 35px);
+    }
+    .cta-inner { position: relative; text-align: center; max-width: 620px; margin: 0 auto; padding: 0 48px; }
+    .cta-title { font-family: var(--fd); font-size: clamp(1.9rem, 3vw, 2.7rem); font-weight: 700; color: white; letter-spacing: -0.022em; line-height: 1.15; margin-bottom: 20px; }
+    .cta-sub { font-size: 1rem; color: oklch(97% 0 0 / 0.58); line-height: 1.68; margin-bottom: 44px; }
+    .cta-btns { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; }
+    .btn-ghost-inv { padding: 13px 28px; border: 1.5px solid oklch(100% 0 0 / 0.24); color: var(--inv); border-radius: 5px; font-family: var(--fd); font-size: 0.95rem; font-weight: 500; transition: border-color 0.2s, background 0.2s; }
+    .btn-ghost-inv:hover { border-color: oklch(100% 0 0 / 0.5); background: oklch(100% 0 0 / 0.05); }
+
+    /* FOOTER */
+    .footer { background: var(--g900); padding: 76px 0 36px; }
+    .footer-grid { max-width: 1200px; margin: 0 auto; padding: 0 48px; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 52px; margin-bottom: 60px; }
+    .footer-brand-name { font-family: var(--fd); font-size: 1.05rem; font-weight: 700; color: white; margin-bottom: 10px; }
+    .footer-brand-tag { font-size: 0.82rem; color: oklch(97% 0 0 / 0.38); line-height: 1.65; margin-bottom: 24px; }
+    .footer-contact { font-size: 0.82rem; color: oklch(97% 0 0 / 0.48); margin-bottom: 6px; }
+    .footer-contact a:hover { color: var(--a400); }
+    .footer-col-hd { font-family: var(--fd); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: oklch(97% 0 0 / 0.32); margin-bottom: 20px; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-links a { font-size: 0.85rem; color: oklch(97% 0 0 / 0.52); transition: color 0.2s; }
+    .footer-links a:hover { color: white; }
+    .footer-bottom { max-width: 1200px; margin: 0 auto; padding: 24px 48px 0; border-top: 1px solid oklch(100% 0 0 / 0.08); display: flex; justify-content: space-between; align-items: center; font-size: 0.78rem; color: oklch(97% 0 0 / 0.28); }
+    .footer-social { display: flex; gap: 18px; }
+    .footer-social a { font-size: 0.78rem; color: oklch(97% 0 0 / 0.32); font-weight: 500; transition: color 0.2s; }
+    .footer-social a:hover { color: var(--a400); }
+
+    /* CHATBOT */
+    .cb-trigger {
+      position: fixed; bottom: 28px; right: 28px; z-index: 200;
+      width: 56px; height: 56px; border-radius: 50%;
+      background: var(--g600); box-shadow: 0 4px 22px oklch(20% 0.10 145 / 0.45);
+      display: flex; align-items: center; justify-content: center; transition: transform 0.2s, background 0.2s;
+    }
+    .cb-trigger:hover { transform: scale(1.06); background: var(--g700); }
+    .cb-win {
+      position: fixed; bottom: 98px; right: 28px; z-index: 200;
+      width: 336px; background: white; border-radius: 16px;
+      box-shadow: 0 12px 44px oklch(20% 0.10 145 / 0.18), 0 0 0 1px var(--border);
+      overflow: hidden; display: none; flex-direction: column;
+    }
+    .cb-win.open { display: flex; animation: cbSlide 0.25s ease-out; }
+    @keyframes cbSlide { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+    .cb-hd { background: var(--g700); padding: 16px 20px; display: flex; align-items: center; gap: 12px; }
+    .cb-avatar { width: 36px; height: 36px; border-radius: 50%; background: white; display: flex; align-items: center; justify-content: center; font-family: var(--fd); font-weight: 800; font-size: 0.88rem; color: var(--g700); }
+    .cb-name { font-family: var(--fd); font-size: 0.9rem; font-weight: 600; color: white; }
+    .cb-status { font-size: 0.72rem; color: oklch(97% 0 0 / 0.55); margin-top: 2px; }
+    .cb-close { margin-left: auto; color: oklch(97% 0 0 / 0.55); font-size: 1.3rem; line-height: 1; padding: 2px 6px; transition: color 0.2s; }
+    .cb-close:hover { color: white; }
+    .cb-body { padding: 20px; }
+    .cb-msg { background: var(--g50); border-radius: 0 10px 10px 10px; padding: 12px 14px; font-size: 0.86rem; color: var(--text); line-height: 1.58; margin-bottom: 16px; max-width: 88%; }
+    .cb-qrs { display: flex; flex-wrap: wrap; gap: 8px; }
+    .cb-qr { padding: 7px 14px; border: 1.5px solid var(--g200); border-radius: 20px; font-size: 0.78rem; font-weight: 500; color: var(--g600); background: white; cursor: pointer; transition: all 0.2s; }
+    .cb-qr:hover { background: var(--g600); color: white; border-color: var(--g600); }
+    .cb-foot { padding: 12px 16px; border-top: 1px solid var(--border); display: flex; gap: 8px; }
+    .cb-input { flex: 1; padding: 9px 14px; border: 1.5px solid var(--border); border-radius: 20px; font-size: 0.83rem; font-family: var(--fb); color: var(--text); outline: none; transition: border-color 0.2s; }
+    .cb-input:focus { border-color: var(--g400); }
+    .cb-send { width: 36px; height: 36px; border-radius: 50%; background: var(--g600); color: white; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 0.2s; }
+    .cb-send:hover { background: var(--g700); }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-mark">
+      <img src="public/images/logo.png" alt="Hosamine SARL" class="logo-img">
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#services"><span class="fr-only">Services</span><span class="en-only">Services</span></a></li>
+    <li><a href="#about"><span class="fr-only">À propos</span><span class="en-only">About</span></a></li>
+    <li><a href="#clients"><span class="fr-only">Clients</span><span class="en-only">Clients</span></a></li>
+    <li><a href="#contact"><span class="fr-only">Contact</span><span class="en-only">Contact</span></a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="lang-toggle">
+      <button class="lang-btn active" id="btn-fr" onclick="setLang('fr')">FR</button>
+      <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+    </div>
+    <a href="#contact" class="nav-cta">
+      <span class="fr-only">Demander un diagnostic</span>
+      <span class="en-only">Request a diagnosis</span>
+    </a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="hero-badge-dot"></span>
+      <span class="fr-only">Solutions environnementales &amp; agricoles · Douala, Cameroun</span>
+      <span class="en-only">Environmental &amp; agricultural solutions · Douala, Cameroon</span>
+    </div>
+    <h1 class="hero-headline">
+      <span class="fr-only">Expertise<br>certifiée.<br><em>Résultats</em><br>garantis.</span>
+      <span class="en-only">Certified<br>expertise.<br><em>Guaranteed</em><br>results.</span>
+    </h1>
+    <p class="hero-sub">
+      <span class="fr-only">Hygiène publique, traitements phytosanitaires et assainissement pour les entreprises et institutions du Cameroun.</span>
+      <span class="en-only">Public hygiene, phytosanitary treatments and sanitation for businesses and institutions across Cameroon.</span>
+    </p>
+    <div class="hero-actions">
+      <a href="#services" class="btn-amber">
+        <span class="fr-only">Découvrir nos services</span>
+        <span class="en-only">Discover our services</span>
+      </a>
+      <a href="#contact" class="btn-ghost-white">
+        <span class="fr-only">Demander un devis</span>
+        <span class="en-only">Request a quote</span>
+      </a>
+    </div>
+  </div>
+  <div class="hero-creds">
+    <span class="fr-only">5 ans d'expérience</span>
+    <span class="en-only">5 years of experience</span>
+    <span class="hero-cred-sep">·</span>
+    <span>Agréé MINADER · MINSANTE</span>
+    <span class="hero-cred-sep">·</span>
+    <span class="fr-only">Partenaire Port Autonome de Douala</span>
+    <span class="en-only">Port of Douala official partner</span>
+    <span class="hero-cred-sep">·</span>
+    <span class="fr-only">50+ entreprises clientes</span>
+    <span class="en-only">50+ corporate clients</span>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="si">
+    <div class="sec-hd" style="margin-bottom:56px">
+      <span class="sec-label"><span class="fr-only">Nos Services</span><span class="en-only">Our Services</span></span>
+      <h2 class="sec-title">
+        <span class="fr-only">Quatre domaines d'expertise<br>pour un environnement sain</span>
+        <span class="en-only">Four areas of expertise<br>for a healthy environment</span>
+      </h2>
+    </div>
+  </div>
+  <div class="services-grid">
+    <!-- Service 1: Primary -->
+    <div class="svc svc-1">
+      <div class="svc-num">01</div>
+      <h3 class="svc-title"><span class="fr-only">Hygiène Publique</span><span class="en-only">Public Hygiene</span></h3>
+      <p class="svc-desc">
+        <span class="fr-only">Élimination des nuisibles, désinfection complète et nettoyage professionnel pour les entreprises, hôpitaux et institutions.</span>
+        <span class="en-only">Pest elimination, complete disinfection, and professional cleaning for businesses, hospitals and institutions.</span>
+      </p>
+      <ul class="svc-items">
+        <li><span class="fr-only">Désinsectisation (cafards, moustiques, fourmis, mouches)</span><span class="en-only">Insect control (cockroaches, mosquitoes, ants, flies)</span></li>
+        <li><span class="fr-only">Dératisation et gestion des rongeurs</span><span class="en-only">Rodent control and management</span></li>
+        <li><span class="fr-only">Désinfection des surfaces et locaux</span><span class="en-only">Surface and premises disinfection</span></li>
+        <li><span class="fr-only">Nettoyage professionnel et post-construction</span><span class="en-only">Professional and post-construction cleaning</span></li>
+        <li><span class="fr-only">Collecte et gestion des déchets</span><span class="en-only">Waste collection and management</span></li>
+      </ul>
+      <a href="#contact" class="svc-link">
+        <span class="fr-only">En savoir plus</span><span class="en-only">Learn more</span>
+      </a>
+    </div>
+    <!-- Service 2 -->
+    <div class="svc svc-2">
+      <div class="svc-num">02</div>
+      <h3 class="svc-title"><span class="fr-only">Traitements Phytosanitaires</span><span class="en-only">Phytosanitary Treatments</span></h3>
+      <p class="svc-desc">
+        <span class="fr-only">Fumigation certifiée pour le commerce international et protection des cultures agricoles.</span>
+        <span class="en-only">Certified fumigation for international trade and agricultural crop protection.</span>
+      </p>
+      <ul class="svc-items">
+        <li><span class="fr-only">Fumigation de conteneurs (normes PAD/ISPM-15)</span><span class="en-only">Container fumigation (PAD/ISPM-15 standards)</span></li>
+        <li><span class="fr-only">Fumigation sous bâches et en stockage</span><span class="en-only">Tarp and storage fumigation</span></li>
+        <li><span class="fr-only">Traitement des bois et cultures</span><span class="en-only">Wood and crop treatments</span></li>
+      </ul>
+      <a href="#contact" class="svc-link">
+        <span class="fr-only">En savoir plus</span><span class="en-only">Learn more</span>
+      </a>
+    </div>
+    <!-- Service 3 -->
+    <div class="svc svc-3">
+      <div class="svc-num">03</div>
+      <h3 class="svc-title"><span class="fr-only">Assainissement</span><span class="en-only">Sanitation</span></h3>
+      <p class="svc-desc">
+        <span class="fr-only">Infrastructure sanitaire et accès à l'eau pour entreprises et communautés rurales.</span>
+        <span class="en-only">Sanitary infrastructure and water access for businesses and rural communities.</span>
+      </p>
+      <ul class="svc-items">
+        <li><span class="fr-only">Vidange de fosses septiques</span><span class="en-only">Septic tank pumping</span></li>
+        <li><span class="fr-only">Curage de caniveaux et drains</span><span class="en-only">Drainage channel cleaning</span></li>
+        <li><span class="fr-only">Forages et points d'eau potable</span><span class="en-only">Boreholes and drinking water points</span></li>
+      </ul>
+      <a href="#contact" class="svc-link">
+        <span class="fr-only">En savoir plus</span><span class="en-only">Learn more</span>
+      </a>
+    </div>
+    <!-- Service 4 -->
+    <div class="svc svc-4">
+      <div class="svc-num">04</div>
+      <h3 class="svc-title"><span class="fr-only">Formations</span><span class="en-only">Training</span></h3>
+      <p class="svc-desc">
+        <span class="fr-only">Renforcement des capacités agricoles et environnementales pour ONG et institutions.</span>
+        <span class="en-only">Agricultural and environmental capacity building for NGOs and institutions.</span>
+      </p>
+      <ul class="svc-items">
+        <li><span class="fr-only">Agriculture durable et ressources naturelles</span><span class="en-only">Sustainable agriculture and natural resources</span></li>
+        <li><span class="fr-only">Gestion des points d'eau et assainissement</span><span class="en-only">Water point management and sanitation</span></li>
+        <li><span class="fr-only">Ateliers communautaires participatifs</span><span class="en-only">Participatory community workshops</span></li>
+      </ul>
+      <a href="#contact" class="svc-link">
+        <span class="fr-only">En savoir plus</span><span class="en-only">Learn more</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats">
+  <div class="stats-grid">
+    <div class="stat">
+      <div class="stat-val">5</div>
+      <div class="stat-lbl"><span class="fr-only">ans d'expérience</span><span class="en-only">years of experience</span></div>
+    </div>
+    <div class="stat">
+      <div class="stat-val">50<sup>+</sup></div>
+      <div class="stat-lbl"><span class="fr-only">entreprises clientes</span><span class="en-only">corporate clients</span></div>
+    </div>
+    <div class="stat">
+      <div class="stat-val">3</div>
+      <div class="stat-lbl"><span class="fr-only">agréments officiels</span><span class="en-only">official approvals</span></div>
+    </div>
+    <div class="stat">
+      <div class="stat-val">4</div>
+      <div class="stat-lbl"><span class="fr-only">domaines de services</span><span class="en-only">service areas</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="si">
+    <div class="about-inner">
+      <div>
+        <span class="sec-label"><span class="fr-only">À propos</span><span class="en-only">About us</span></span>
+        <h2 class="sec-title" style="margin-bottom:20px">
+          <span class="fr-only">Agrément officiel.<br>Expertise de terrain.</span>
+          <span class="en-only">Official approval.<br>Field expertise.</span>
+        </h2>
+        <p style="font-size:1rem;color:var(--text2);line-height:1.72;margin-bottom:28px">
+          <span class="fr-only">Depuis 2020, Hosamine SARL accompagne les entreprises, institutions hospitalières et acteurs agricoles du Cameroun avec des solutions environnementales certifiées. Nos équipes interviennent sur Douala et l'ensemble de la région.</span>
+          <span class="en-only">Since 2020, Hosamine SARL supports businesses, healthcare institutions and agricultural stakeholders across Cameroon with certified environmental solutions. Our teams operate in Douala and across the region.</span>
+        </p>
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <div style="display:flex;align-items:flex-start;gap:12px">
+            <div style="width:8px;height:8px;border-radius:50%;background:var(--a400);margin-top:7px;flex-shrink:0"></div>
+            <span style="font-size:0.9rem;color:var(--text2)"><span class="fr-only"><strong style="color:var(--text)">Missions et valeurs:</strong> Rigueur, réactivité, respect des normes sanitaires et environnementales nationales et internationales.</span><span class="en-only"><strong style="color:var(--text)">Mission and values:</strong> Rigor, responsiveness, compliance with national and international sanitary and environmental standards.</span></span>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:12px">
+            <div style="width:8px;height:8px;border-radius:50%;background:var(--a400);margin-top:7px;flex-shrink:0"></div>
+            <span style="font-size:0.9rem;color:var(--text2)"><span class="fr-only"><strong style="color:var(--text)">Secteurs servis:</strong> Pétrole &amp; gaz, banque, santé, logistique, agro-industrie, organismes de développement.</span><span class="en-only"><strong style="color:var(--text)">Sectors served:</strong> Oil &amp; gas, banking, healthcare, logistics, agro-industry, development organizations.</span></span>
+          </div>
+        </div>
+      </div>
+      <div class="about-visual">
+        <div class="about-visual-content">
+          <p style="font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:oklch(97% 0 0 / 0.35);margin-bottom:20px">
+            <span class="fr-only">Agréments &amp; Partenariats officiels</span>
+            <span class="en-only">Official approvals &amp; partnerships</span>
+          </p>
+          <div class="about-cert">
+            <div class="about-cert-badge">MIN</div>
+            <div>
+              <div class="about-cert-name">MINADER</div>
+              <div class="about-cert-desc"><span class="fr-only">Ministère de l'Agriculture et du Développement Rural</span><span class="en-only">Ministry of Agriculture and Rural Development</span></div>
+            </div>
+          </div>
+          <div class="about-cert">
+            <div class="about-cert-badge">MNS</div>
+            <div>
+              <div class="about-cert-name">MINSANTE</div>
+              <div class="about-cert-desc"><span class="fr-only">Ministère de la Santé Publique</span><span class="en-only">Ministry of Public Health</span></div>
+            </div>
+          </div>
+          <div class="about-cert">
+            <div class="about-cert-badge">PAD</div>
+            <div>
+              <div class="about-cert-name"><span class="fr-only">Port Autonome de Douala</span><span class="en-only">Port of Douala</span></div>
+              <div class="about-cert-desc"><span class="fr-only">Partenaire officiel pour la fumigation de conteneurs</span><span class="en-only">Official container fumigation partner</span></div>
+            </div>
+          </div>
+          <div class="about-tags">
+            <span class="about-tag">ISO ISPM-15</span>
+            <span class="about-tag"><span class="fr-only">17 experts</span><span class="en-only">17 experts</span></span>
+            <span class="about-tag">Douala</span>
+            <span class="about-tag"><span class="fr-only">Bilingue FR/EN</span><span class="en-only">Bilingual FR/EN</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLIENTS -->
+<section class="clients" id="clients">
+  <div class="si">
+    <div style="margin-bottom:48px">
+      <span class="sec-label"><span class="fr-only">Références</span><span class="en-only">References</span></span>
+      <h2 class="sec-title"><span class="fr-only">Ils nous font confiance</span><span class="en-only">They trust us</span></h2>
+    </div>
+    <div class="clients-grid">
+      <div class="client-item"><img src="public/images/clients/nhpc.png" alt="NHPC" class="client-logo-img"></div>
+      <div class="client-item"><img src="public/images/clients/schlumberger.png" alt="Schlumberger" class="client-logo-img"></div>
+      <div class="client-item"><img src="public/images/clients/dhl.png" alt="DHL" class="client-logo-img"></div>
+      <div class="client-item"><img src="public/images/clients/uba.png" alt="UBA" class="client-logo-img"></div>
+      <div class="client-item"><img src="public/images/clients/saicam.png" alt="SAICAM" class="client-logo-img"></div>
+      <div class="client-item"><img src="public/images/clients/novia.png" alt="NOVIA Industries" class="client-logo-img"></div>
+      <div class="client-item"><img src="public/images/clients/cbch.png" alt="CBCH" class="client-logo-img"></div>
+      <div class="client-item"><img src="public/images/clients/sbs.png" alt="Security Boat Services" class="client-logo-img"></div>
+      <div class="client-item"><img src="public/images/clients/ccima.png" alt="CCIMA" class="client-logo-img"></div>
+      <div class="client-item"><img src="public/images/clients/padre-pio.png" alt="Padre Pio" class="client-logo-img"></div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="si">
+    <div style="margin-bottom:56px">
+      <span class="sec-label"><span class="fr-only">Témoignages</span><span class="en-only">Testimonials</span></span>
+      <h2 class="sec-title"><span class="fr-only">Ce que disent nos clients</span><span class="en-only">What our clients say</span></h2>
+    </div>
+    <div class="testimonials-grid">
+      <div>
+        <span class="testi-qmark">"</span>
+        <p class="testi-text"><span class="fr-only">Partenaire depuis 3 ans, entièrement satisfaits des prestations en hygiène publique, assainissement et traitements phytosanitaires. Sérieux et professionnels.</span><span class="en-only">Partner for 3 years, fully satisfied with public hygiene, sanitation and phytosanitary services. Serious and professional.</span></p>
+        <div class="testi-author">
+          <div class="testi-name"><span class="fr-only">Responsable Production</span><span class="en-only">Production Manager</span></div>
+          <div class="testi-role">SAICAM</div>
+        </div>
+      </div>
+      <div>
+        <span class="testi-qmark">"</span>
+        <p class="testi-text"><span class="fr-only">Chaque demande est traitée rapidement, avec une grande attention aux détails et au respect strict des normes d'hygiène et de sécurité.</span><span class="en-only">Every request is handled quickly, with great attention to detail and strict compliance with hygiene and safety standards.</span></p>
+        <div class="testi-author">
+          <div class="testi-name">Pamela PENE</div>
+          <div class="testi-role"><span class="fr-only">Coordinatrice QHSE</span><span class="en-only">QHSE Coordinator</span> — NOVIA Industries</div>
+        </div>
+      </div>
+      <div>
+        <span class="testi-qmark">"</span>
+        <p class="testi-text"><span class="fr-only">Un professionnalisme exemplaire et une réactivité sans faille pour nos services de désinfection. Nous recommandons Hosamine sans hésitation.</span><span class="en-only">Exemplary professionalism and unwavering responsiveness for our disinfection services. We recommend Hosamine without hesitation.</span></p>
+        <div class="testi-author">
+          <div class="testi-name">Sali Yougouda</div>
+          <div class="testi-role"><span class="fr-only">Directeur RH</span><span class="en-only">HR Director</span> — UBA</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PARTNERS -->
+<section class="partners">
+  <div class="si">
+    <p class="partners-lbl"><span class="fr-only">Partenaires &amp; Fournisseurs agréés</span><span class="en-only">Approved partners &amp; suppliers</span></p>
+    <div class="partners-row">
+      <span class="partner-item">Solevo</span>
+      <span class="partner-item">ARYSTA</span>
+      <span class="partner-item">Danken Agrosolutions</span>
+      <span class="partner-item">Royal Chimie</span>
+      <span class="partner-item">Horizon Phyto Plus</span>
+      <span class="partner-item">AGROCHEM</span>
+      <span class="partner-item">Eagrow</span>
+      <span class="partner-item">Fimex International</span>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-sec" id="contact">
+  <div class="cta-inner">
+    <h2 class="cta-title">
+      <span class="fr-only">Prêt à assainir<br>votre environnement ?</span>
+      <span class="en-only">Ready to sanitize<br>your environment?</span>
+    </h2>
+    <p class="cta-sub">
+      <span class="fr-only">Contactez-nous pour un diagnostic gratuit. Nos experts interviennent à Douala et dans toute la région du Littoral.</span>
+      <span class="en-only">Contact us for a free diagnosis. Our experts operate in Douala and across the Littoral region.</span>
+    </p>
+    <div class="cta-btns">
+      <a href="tel:+237677550011" class="btn-amber">+237 677 550 011</a>
+      <a href="mailto:contact@hosamine.net" class="btn-ghost-inv">contact@hosamine.net</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div>
+      <img src="public/images/logo.png" alt="Hosamine SARL" class="logo-img-footer" style="margin-bottom:20px;display:block">
+      <p class="footer-contact">Deido, Rue Epee Ekwalla, Douala</p>
+      <p class="footer-contact"><a href="tel:+237677550011">+237 677 550 011</a></p>
+      <p class="footer-contact"><a href="mailto:contact@hosamine.net">contact@hosamine.net</a></p>
+    </div>
+    <div>
+      <div class="footer-col-hd"><span class="fr-only">Services</span><span class="en-only">Services</span></div>
+      <ul class="footer-links">
+        <li><a href="#"><span class="fr-only">Hygiène Publique</span><span class="en-only">Public Hygiene</span></a></li>
+        <li><a href="#"><span class="fr-only">Phytosanitaire</span><span class="en-only">Phytosanitary</span></a></li>
+        <li><a href="#"><span class="fr-only">Assainissement</span><span class="en-only">Sanitation</span></a></li>
+        <li><a href="#"><span class="fr-only">Formations</span><span class="en-only">Training</span></a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-hd"><span class="fr-only">Entreprise</span><span class="en-only">Company</span></div>
+      <ul class="footer-links">
+        <li><a href="#"><span class="fr-only">À propos</span><span class="en-only">About</span></a></li>
+        <li><a href="#"><span class="fr-only">Nos clients</span><span class="en-only">Our clients</span></a></li>
+        <li><a href="#"><span class="fr-only">Partenaires</span><span class="en-only">Partners</span></a></li>
+        <li><a href="#"><span class="fr-only">Blog</span><span class="en-only">Blog</span></a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-hd"><span class="fr-only">Suivez-nous</span><span class="en-only">Follow us</span></div>
+      <ul class="footer-links">
+        <li><a href="#">Facebook</a></li>
+        <li><a href="#">LinkedIn</a></li>
+        <li><a href="#">TikTok</a></li>
+        <li><a href="#">WhatsApp Business</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="fr-only">© 2025 Hosamine SARL. Tous droits réservés.</span>
+    <span class="en-only">© 2025 Hosamine SARL. All rights reserved.</span>
+    <div class="footer-social">
+      <a href="#">Facebook</a>
+      <a href="#">LinkedIn</a>
+      <a href="#">TikTok</a>
+    </div>
+  </div>
+</footer>
+
+<!-- CHATBOT -->
+<button class="cb-trigger" id="cbTrigger" onclick="toggleChat()" title="Chat">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+  </svg>
+</button>
+<div class="cb-win" id="cbWin">
+  <div class="cb-hd">
+    <div class="cb-avatar">H</div>
+    <div>
+      <div class="cb-name"><span class="fr-only">Assistant Hosamine</span><span class="en-only">Hosamine Assistant</span></div>
+      <div class="cb-status"><span class="fr-only">En ligne · Répond en quelques minutes</span><span class="en-only">Online · Replies within minutes</span></div>
+    </div>
+    <button class="cb-close" onclick="toggleChat()">×</button>
+  </div>
+  <div class="cb-body">
+    <div class="cb-msg">
+      <span class="fr-only">Bonjour ! Comment puis-je vous aider ? Choisissez une option ou posez votre question.</span>
+      <span class="en-only">Hello! How can I help you? Choose an option or ask your question.</span>
+    </div>
+    <div class="cb-qrs">
+      <button class="cb-qr"><span class="fr-only">Nos services</span><span class="en-only">Our services</span></button>
+      <button class="cb-qr"><span class="fr-only">Demander un devis</span><span class="en-only">Request a quote</span></button>
+      <button class="cb-qr"><span class="fr-only">Prendre RDV</span><span class="en-only">Book appointment</span></button>
+      <button class="cb-qr"><span class="fr-only">Nous contacter</span><span class="en-only">Contact us</span></button>
+    </div>
+  </div>
+  <div class="cb-foot">
+    <input class="cb-input" type="text" placeholder="Écrivez votre message..." id="cbInput">
+    <button class="cb-send">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+    </button>
+  </div>
+</div>
+
+<script>
+  // Nav scroll
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // Language toggle
+  function setLang(lang) {
+    document.documentElement.setAttribute('data-lang', lang);
+    document.documentElement.setAttribute('lang', lang);
+    document.getElementById('btn-fr').classList.toggle('active', lang === 'fr');
+    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+    document.getElementById('cbInput').placeholder = lang === 'fr' ? 'Écrivez votre message...' : 'Write your message...';
+  }
+
+  // Chatbot toggle
+  function toggleChat() {
+    document.getElementById('cbWin').classList.toggle('open');
+  }
+</script>
+</body>
+</html>
