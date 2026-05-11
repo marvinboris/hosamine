@@ -125,6 +125,7 @@ export default function Services() {
         />
         <ServiceCard
           num="04"
+          className="lg:col-span-2"
           title={t("s4_title")}
           desc={t("s4_desc")}
           items={[t("s4_i1"), t("s4_i2"), t("s4_i3")]}

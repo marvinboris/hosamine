@@ -49,14 +49,16 @@ a { text-decoration: none; color: inherit; }
 [data-lang="en"] .fr-only { display: none; }
 
 /* ─── Section helpers ───────────────────────────────────────── */
+/* IMPORTANT: Use padding-inline only (not shorthand `padding`)  */
+/* so Tailwind pt-* / pb-* / py-* utilities are not overridden. */
 .si {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 1.5rem;
+  padding-inline: 1.5rem;
 }
 @media (min-width: 768px) {
-  .si { padding: 0 2.5rem; }
+  .si { padding-inline: 2.5rem; }
 }
 @media (min-width: 1024px) {
-  .si { padding: 0 3rem; }
+  .si { padding-inline: 3rem; }
 }

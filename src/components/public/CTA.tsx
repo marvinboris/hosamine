@@ -29,7 +29,7 @@ export default function CTA() {
           </a>
           <a
             href={`mailto:${t("btn_email")}`}
-            className="inline-flex items-center justify-center px-7 py-3.5 rounded-[5px] border border-white/24 text-white font-[var(--font-display)] font-medium text-sm transition-all hover:border-white/50 hover:bg-white/5"
+            className="inline-flex items-center justify-center px-7 py-3.5 rounded-[5px] border border-white/45 text-white font-[var(--font-display)] font-medium text-sm transition-all hover:border-white/70 hover:bg-white/8"
           >
             {t("btn_email")}
           </a>

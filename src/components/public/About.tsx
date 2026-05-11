@@ -50,7 +50,7 @@ export default function About() {
               }}
             />
             <div className="relative z-10">
-              <p className="text-[11px] font-bold uppercase tracking-[0.1em] text-white/32 mb-5">
+              <p className="text-[11px] font-bold uppercase tracking-[0.1em] text-white/50 mb-5">
                 {t("certs_title")}
               </p>
               <div className="space-y-0 divide-y divide-white/10">
@@ -63,7 +63,7 @@ export default function About() {
                       <div className="font-[var(--font-display)] text-sm font-semibold text-white mb-0.5">
                         {t(`${key}_name` as any)}
                       </div>
-                      <div className="text-xs text-white/50">{t(`${key}_desc` as any)}</div>
+                      <div className="text-xs text-white/68">{t(`${key}_desc` as any)}</div>
                     </div>
                   </div>
                 ))}

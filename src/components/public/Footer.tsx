@@ -18,16 +18,16 @@ export default function Footer() {
             height={49}
             className="h-11 w-auto mb-5 brightness-0 invert opacity-85 [clip-path:inset(0_0_0_5px)]"
           />
-          <p className="text-xs text-white/38 leading-[1.65] mb-6">{t("tagline")}</p>
+          <p className="text-xs text-white/58 leading-[1.65] mb-6">{t("tagline")}</p>
           <address className="not-italic space-y-1.5">
-            <p className="text-xs text-white/48">{t("address")}</p>
+            <p className="text-xs text-white/65">{t("address")}</p>
             <p className="text-xs">
-              <a href="tel:+237677550011" className="text-white/48 hover:text-[var(--color-a-400)] transition-colors">
+              <a href="tel:+237677550011" className="text-white/65 hover:text-[var(--color-a-400)] transition-colors">
                 +237 677 550 011
               </a>
             </p>
             <p className="text-xs">
-              <a href="mailto:contact@hosamine.net" className="text-white/48 hover:text-[var(--color-a-400)] transition-colors">
+              <a href="mailto:contact@hosamine.net" className="text-white/65 hover:text-[var(--color-a-400)] transition-colors">
                 contact@hosamine.net
               </a>
             </p>
@@ -36,13 +36,13 @@ export default function Footer() {
 
         {/* Services */}
         <div>
-          <h4 className="text-[10px] font-bold uppercase tracking-[0.1em] text-white/30 mb-4">
+          <h4 className="text-[10px] font-bold uppercase tracking-[0.1em] text-white/45 mb-4">
             {t("col_services")}
           </h4>
           <ul className="space-y-2.5">
             {["Hygiène Publique", "Phytosanitaire", "Assainissement", "Formations"].map((s) => (
               <li key={s}>
-                <Link href="#services" className="text-sm text-white/52 hover:text-white transition-colors">
+                <Link href="#services" className="text-sm text-white/68 hover:text-white transition-colors">
                   {s}
                 </Link>
               </li>
@@ -52,14 +52,14 @@ export default function Footer() {
 
         {/* Company */}
         <div>
-          <h4 className="text-[10px] font-bold uppercase tracking-[0.1em] text-white/30 mb-4">
+          <h4 className="text-[10px] font-bold uppercase tracking-[0.1em] text-white/45 mb-4">
             {t("col_company")}
           </h4>
           <ul className="space-y-2.5">
             {([["about", "#about"], ["clients", "#clients"], ["partners", "#"], ["blog", "#"]] as const).map(
               ([key, href]) => (
                 <li key={key}>
-                  <Link href={href} className="text-sm text-white/52 hover:text-white transition-colors">
+                  <Link href={href} className="text-sm text-white/68 hover:text-white transition-colors">
                     {t(`lnk_${key}` as any)}
                   </Link>
                 </li>
@@ -70,13 +70,13 @@ export default function Footer() {
 
         {/* Social */}
         <div>
-          <h4 className="text-[10px] font-bold uppercase tracking-[0.1em] text-white/30 mb-4">
+          <h4 className="text-[10px] font-bold uppercase tracking-[0.1em] text-white/45 mb-4">
             {t("col_follow")}
           </h4>
           <ul className="space-y-2.5">
             {["Facebook", "LinkedIn", "TikTok", "WhatsApp Business"].map((s) => (
               <li key={s}>
-                <Link href="#" className="text-sm text-white/52 hover:text-[var(--color-a-400)] transition-colors">
+                <Link href="#" className="text-sm text-white/68 hover:text-[var(--color-a-400)] transition-colors">
                   {s}
                 </Link>
               </li>
@@ -87,7 +87,7 @@ export default function Footer() {
 
       {/* Bottom bar */}
       <div className="si border-t border-white/8 pt-6 flex flex-col sm:flex-row justify-between items-center gap-3">
-        <p className="text-[11px] text-white/28">{t("copyright")}</p>
+        <p className="text-[11px] text-white/45">{t("copyright")}</p>
         <div className="flex gap-4">
           {["Facebook", "LinkedIn", "TikTok"].map((s) => (
             <Link key={s} href="#" className="text-[11px] font-medium text-white/32 hover:text-[var(--color-a-400)] transition-colors">
