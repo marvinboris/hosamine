@@ -34,15 +34,20 @@
 }
 
 /* ─── Base ──────────────────────────────────────────────────── */
-* { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body {
-  font-family: var(--font-body);
-  color: var(--color-text);
-  background: var(--color-g-50);
-  -webkit-font-smoothing: antialiased;
+/* All base resets in @layer base so Tailwind utilities take     */
+/* precedence via CSS cascade layers (utilities > base).         */
+@layer base {
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font-body);
+    color: oklch(18% 0.010 145);
+    background: oklch(98.5% 0.007 145);
+    -webkit-font-smoothing: antialiased;
+  }
+  /* color: inherit on <a> must be in base so text-* utilities override it */
+  a { text-decoration: none; color: inherit; }
 }
-a { text-decoration: none; color: inherit; }
 
 /* ─── Bilingual ─────────────────────────────────────────────── */
 [data-lang="fr"] .en-only { display: none; }

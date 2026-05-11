@@ -46,20 +46,20 @@ export default function AdminLogin() {
           <h1 className="font-[var(--font-display)] text-lg font-700 text-white mb-2">
             Espace administration
           </h1>
-          <p className="text-sm text-white/50 mb-7">
+          <p className="text-sm text-white/70 mb-7">
             Accès réservé à l&apos;équipe Hosamine.
           </p>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-xs font-semibold text-white/50 uppercase tracking-wider mb-2">
+              <label className="block text-xs font-semibold text-white/70 uppercase tracking-wider mb-2">
                 Mot de passe
               </label>
               <input
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-3 bg-[var(--color-g-700)] border border-white/10 rounded-lg text-sm text-white placeholder-white/25 outline-none focus:border-[var(--color-a-500)] transition-colors"
+                className="w-full px-4 py-3 bg-[var(--color-g-700)] border border-white/20 rounded-lg text-sm text-white placeholder-white/45 outline-none focus:border-[var(--color-a-500)] transition-colors"
                 placeholder="••••••••"
                 required
                 autoFocus

@@ -68,7 +68,7 @@ export default function AdminSidebar() {
       <nav className="flex-1 py-4">
         {NAV.map((group) => (
           <div key={group.label} className="px-3 mb-5">
-            <p className="px-2 mb-1.5 text-[10px] font-bold uppercase tracking-[0.1em] text-white/28">
+            <p className="px-2 mb-1.5 text-[10px] font-bold uppercase tracking-[0.1em] text-white/50">
               {group.label}
             </p>
             {group.items.map((item) => {
@@ -80,7 +80,7 @@ export default function AdminSidebar() {
                   className={`flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-sm font-medium mb-0.5 transition-all ${
                     active
                       ? "bg-[var(--color-g-700)] text-white"
-                      : "text-white/55 hover:bg-white/6 hover:text-white/85"
+                      : "text-white/72 hover:bg-white/8 hover:text-white"
                   }`}
                 >
                   <span className={`flex-shrink-0 ${active ? "opacity-100" : "opacity-70"}`}>
@@ -111,8 +111,8 @@ export default function AdminSidebar() {
           MN
         </div>
         <div className="flex-1 min-w-0">
-          <p className="text-xs font-semibold text-white/70 truncate">Marie Nguendo</p>
-          <p className="text-[10px] text-white/35">Commercial Senior</p>
+          <p className="text-xs font-semibold text-white/85 truncate">Marie Nguendo</p>
+          <p className="text-[10px] text-white/55">Commercial Senior</p>
         </div>
         <Link href="/admin/login" className="text-white/30 hover:text-white/60 transition-colors">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
