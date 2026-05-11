@@ -46,18 +46,18 @@ export default function Hero() {
 
         {/* CTAs */}
         <div className="flex flex-col sm:flex-row gap-3">
-          <Link
+          <a
             href="#services"
             className="inline-flex items-center justify-center px-7 py-3.5 rounded-[5px] bg-[var(--color-a-500)] text-[oklch(18%_0.08_60)] font-semibold font-[var(--font-display)] text-sm transition-all hover:bg-[var(--color-a-600)] hover:-translate-y-0.5 active:translate-y-0"
           >
             {t("cta_primary")}
-          </Link>
-          <Link
+          </a>
+          <a
             href="#contact"
             className="inline-flex items-center justify-center px-7 py-3.5 rounded-[5px] border border-white/28 text-white font-[var(--font-display)] font-medium text-sm transition-all hover:border-white/55 hover:bg-white/5"
           >
             {t("cta_secondary")}
-          </Link>
+          </a>
         </div>
       </div>
 

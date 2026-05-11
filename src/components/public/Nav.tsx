@@ -62,9 +62,9 @@ export default function Nav() {
         <ul className="hidden md:flex gap-8 list-none mx-auto">
           {(["services", "about", "clients", "contact"] as const).map((k) => (
             <li key={k}>
-              <Link href={`#${k}`} className={`text-sm font-medium transition-colors ${linkColor}`}>
+              <a href={`#${k}`} className={`text-sm font-medium transition-colors ${linkColor}`}>
                 {t(k)}
-              </Link>
+              </a>
             </li>
           ))}
         </ul>
@@ -121,24 +121,24 @@ export default function Nav() {
           <ul className="flex flex-col list-none px-6 pt-8 gap-2">
             {(["services", "about", "clients", "contact"] as const).map((k) => (
               <li key={k}>
-                <Link
+                <a
                   href={`#${k}`}
                   onClick={() => setMenuOpen(false)}
                   className="block py-4 text-xl font-semibold text-white/80 border-b border-white/8 hover:text-white transition-colors font-[var(--font-display)]"
                 >
                   {t(k)}
-                </Link>
+                </a>
               </li>
             ))}
           </ul>
           <div className="px-6 pt-8">
-            <Link
+            <a
               href="#contact"
               onClick={() => setMenuOpen(false)}
               className="block w-full text-center py-4 rounded-[5px] bg-[var(--color-a-500)] text-[oklch(18%_0.08_60)] font-semibold font-[var(--font-display)]"
             >
               {t("cta")}
-            </Link>
+            </a>
           </div>
         </div>
       )}
