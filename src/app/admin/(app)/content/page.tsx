@@ -9,6 +9,7 @@ const SECTION_LABELS: Record<string, string> = {
   services:   "Services",
   about:      "À propos",
   stats:      "Chiffres clés",
+  cta:        "Appel à l'action",
   contact:    "Contact",
   footer:     "Pied de page",
 };
