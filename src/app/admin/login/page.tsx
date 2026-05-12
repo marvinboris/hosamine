@@ -5,26 +5,28 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 
 export default function AdminLogin() {
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(false);
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
-    setError(false);
+    setError("");
 
     const res = await fetch("/api/admin/auth", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ password }),
+      body: JSON.stringify({ email, password }),
     });
 
     if (res.ok) {
       router.push("/admin");
     } else {
-      setError(true);
+      const data = await res.json();
+      setError(data.error ?? "Identifiants incorrects.");
       setLoading(false);
     }
   }
@@ -53,6 +55,20 @@ export default function AdminLogin() {
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label className="block text-xs font-semibold text-white/70 uppercase tracking-wider mb-2">
+                Email
+              </label>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full px-4 py-3 bg-[var(--color-g-700)] border border-white/20 rounded-lg text-sm text-white placeholder-white/45 outline-none focus:border-[var(--color-a-500)] transition-colors"
+                placeholder="admin@hosamine.net"
+                required
+                autoFocus
+              />
+            </div>
+            <div>
+              <label className="block text-xs font-semibold text-white/70 uppercase tracking-wider mb-2">
                 Mot de passe
               </label>
               <input
@@ -62,14 +78,11 @@ export default function AdminLogin() {
                 className="w-full px-4 py-3 bg-[var(--color-g-700)] border border-white/20 rounded-lg text-sm text-white placeholder-white/45 outline-none focus:border-[var(--color-a-500)] transition-colors"
                 placeholder="••••••••"
                 required
-                autoFocus
               />
             </div>
 
             {error && (
-              <p className="text-xs text-[var(--color-a-400)]">
-                Mot de passe incorrect.
-              </p>
+              <p className="text-xs text-[var(--color-a-400)]">{error}</p>
             )}
 
             <button
