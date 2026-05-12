@@ -40,8 +40,8 @@ export default function RecoveryPage() {
           <p className="text-sm text-center mt-16" style={{ color: "var(--color-text-3)" }}>Chargement...</p>
         ) : clients.length === 0 ? (
           <div className="text-center mt-16">
-            <p className="text-sm font-semibold mb-1" style={{ color: "var(--color-text)" }}>Aucun recouvrement en cours</p>
-            <p className="text-xs" style={{ color: "var(--color-text-3)" }}>Tous les clients sont à jour.</p>
+            <p className="text-sm font-semibold mb-1" style={{ color: "var(--color-text)" }}>Aucun solde en attente</p>
+            <p className="text-xs" style={{ color: "var(--color-text-3)" }}>Tous les devis en recouvrement sont soldés.</p>
           </div>
         ) : (
           <div className="max-w-3xl mx-auto space-y-3">
