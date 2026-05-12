@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import type { SocialPost } from "@/lib/db/types";
 
 type Platform = "facebook" | "linkedin" | "tiktok" | "whatsapp";
 
@@ -18,7 +19,7 @@ const PLATFORM_COLORS: Record<Platform, { dot: string; tag: string; text: string
   whatsapp:  { dot: "bg-green-600",   tag: "bg-green-50 text-green-700",  text: "WhatsApp" },
 };
 
-const MAY_POSTS: Post[] = [
+const MAY_POSTS_DEMO: Post[] = [
   { day: 1,  platforms: ["facebook", "linkedin"], title: "Désinsectisation entreprise",      status: "published" },
   { day: 2,  platforms: ["whatsapp"],              title: "Message fête du travail",           status: "published" },
   { day: 5,  platforms: ["facebook"],              title: "Témoignage NOVIA Industries",       status: "published" },
@@ -49,6 +50,28 @@ const MAY_DAYS = 31;
 export default function SocialCalendar() {
   const [composerOpen, setComposerOpen] = useState(true);
   const [selectedPlatforms, setSelectedPlatforms] = useState<Platform[]>(["facebook", "linkedin"]);
+  const [dbPosts, setDbPosts] = useState<Post[]>([]);
+  const [saving, setSaving] = useState(false);
+
+  useEffect(() => {
+    fetch("/api/social/posts?month=2025-05")
+      .then((r) => r.json())
+      .then((data: SocialPost[]) => {
+        if (!Array.isArray(data)) return;
+        const mapped: Post[] = data
+          .filter((p) => p.scheduled_at)
+          .map((p) => ({
+            day: new Date(p.scheduled_at!).getDate(),
+            platforms: p.platforms as Platform[],
+            title: (p.content_fr ?? p.content_en ?? "Publication").slice(0, 50),
+            status: p.status as Post["status"],
+          }));
+        setDbPosts(mapped);
+      })
+      .catch(() => setDbPosts([]));
+  }, []);
+
+  const posts = dbPosts.length > 0 ? dbPosts : MAY_POSTS_DEMO;
 
   function togglePlatform(p: Platform) {
     setSelectedPlatforms((prev) =>
@@ -115,7 +138,7 @@ export default function SocialCalendar() {
               if (!day) {
                 return <div key={`empty-${i}`} className="bg-[oklch(99%_0.004_145)] min-h-[88px]" />;
               }
-              const posts = MAY_POSTS.filter((p) => p.day === day);
+              const dayPosts = posts.filter((p) => p.day === day);
               const isToday = day === today;
               return (
                 <div
@@ -128,7 +151,7 @@ export default function SocialCalendar() {
                     {day}
                   </span>
                   <div className="space-y-0.5">
-                    {posts.slice(0, 2).map((post, j) => {
+                    {dayPosts.slice(0, 2).map((post, j) => {
                       const multi = post.platforms.length > 1;
                       const firstPlat = post.platforms[0];
                       return (
@@ -144,8 +167,8 @@ export default function SocialCalendar() {
                         </div>
                       );
                     })}
-                    {posts.length > 2 && (
-                      <div className="text-[10px] text-[var(--color-text-3)] pl-1">+{posts.length - 2} de plus</div>
+                    {dayPosts.length > 2 && (
+                      <div className="text-[10px] text-[var(--color-text-3)] pl-1">+{dayPosts.length - 2} de plus</div>
                     )}
                   </div>
                   <button className="absolute bottom-1.5 right-1.5 w-5 h-5 rounded flex items-center justify-center text-[var(--color-border)] opacity-0 group-hover:opacity-100 hover:!bg-[var(--color-g-100)] hover:!text-[var(--color-g-600)] transition-all text-base leading-none">
@@ -262,10 +285,33 @@ export default function SocialCalendar() {
 
             {/* Footer */}
             <div className="p-4 border-t border-[var(--color-border)] flex gap-2 flex-shrink-0">
-              <button className="flex-1 py-2 border border-[var(--color-border)] rounded-lg text-xs font-semibold text-[var(--color-text-2)]">
-                Brouillon
+              <button
+                onClick={async () => {
+                  setSaving(true);
+                  await fetch("/api/social/posts", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ content_fr: "", platforms: selectedPlatforms, status: "draft" }),
+                  });
+                  setSaving(false);
+                }}
+                className="flex-1 py-2 border border-[var(--color-border)] rounded-lg text-xs font-semibold text-[var(--color-text-2)]"
+              >
+                {saving ? "..." : "Brouillon"}
               </button>
-              <button className="flex-1 py-2 rounded-lg bg-[var(--color-g-600)] text-white text-xs font-semibold hover:bg-[var(--color-g-700)] transition-colors">
+              <button
+                onClick={async () => {
+                  setSaving(true);
+                  await fetch("/api/social/posts", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ content_fr: "", platforms: selectedPlatforms, status: "scheduled", scheduled_at: new Date().toISOString() }),
+                  });
+                  setSaving(false);
+                  window.location.reload();
+                }}
+                className="flex-1 py-2 rounded-lg bg-[var(--color-g-600)] text-white text-xs font-semibold hover:bg-[var(--color-g-700)] transition-colors"
+              >
                 Programmer →
               </button>
             </div>
