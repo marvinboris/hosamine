@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -9,7 +9,6 @@ import { useEffect, useState } from "react";
 export default function Nav() {
   const t = useTranslations("nav");
   const pathname = usePathname();
-  const router = useRouter();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -27,8 +26,8 @@ export default function Nav() {
   }, [scrolled]);
 
   function switchLocale(next: "fr" | "en") {
-    const withoutLocale = pathname.replace(/^\/(en|fr)/, "") || "/";
-    router.push(next === "fr" ? withoutLocale : `/en${withoutLocale}`);
+    const withoutLocale = pathname.replace(/^\/(en|fr)/, "") || "";
+    window.location.href = `/${next}${withoutLocale}`;
   }
 
   const navBase =

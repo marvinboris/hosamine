@@ -108,11 +108,11 @@ export default function AdminSidebar() {
       {/* User */}
       <div className="px-3 py-4 border-t border-white/8 flex items-center gap-2.5">
         <div className="w-8 h-8 rounded-full bg-[var(--color-g-600)] flex items-center justify-center text-xs font-bold text-white flex-shrink-0">
-          MN
+          H
         </div>
         <div className="flex-1 min-w-0">
-          <p className="text-xs font-semibold text-white/85 truncate">Marie Nguendo</p>
-          <p className="text-[10px] text-white/55">Commercial Senior</p>
+          <p className="text-xs font-semibold text-white/85 truncate">Hosamine Admin</p>
+          <p className="text-[10px] text-white/55">Administration</p>
         </div>
         <Link href="/admin/login" className="text-white/30 hover:text-white/60 transition-colors">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
