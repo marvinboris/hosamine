@@ -14,12 +14,16 @@ export async function GET() {
 
   const activeClients = clientsRes.data?.length ?? 0;
   const overdueFollowups = followupRes.data?.length ?? 0;
-  const recoveryAmount = (recoveryRes.data ?? []).reduce(
+  const recoveryData = recoveryRes.data ?? [] as { quote_amount: number | null; advance_paid: number }[];
+  const recoveryClients = recoveryData.filter(
+    (c: { quote_amount: number | null; advance_paid: number }) => (c.quote_amount ?? 0) > c.advance_paid
+  ).length;
+  const recoveryAmount = recoveryData.reduce(
     (sum: number, c: { quote_amount: number | null; advance_paid: number }) =>
       sum + ((c.quote_amount ?? 0) - (c.advance_paid ?? 0)),
     0
   );
   const scheduledPosts = postsRes.data?.length ?? 0;
 
-  return NextResponse.json({ activeClients, overdueFollowups, recoveryAmount, scheduledPosts });
+  return NextResponse.json({ activeClients, overdueFollowups, recoveryClients, recoveryAmount, scheduledPosts });
 }
