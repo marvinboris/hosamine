@@ -50,6 +50,10 @@ const MAY_DAYS = 31;
 export default function SocialCalendar() {
   const [composerOpen, setComposerOpen] = useState(true);
   const [selectedPlatforms, setSelectedPlatforms] = useState<Platform[]>(["facebook", "linkedin"]);
+  const [content, setContent] = useState("");
+  const [scheduledDate, setScheduledDate] = useState(new Date().toISOString().slice(0, 10));
+  const [scheduledTime, setScheduledTime] = useState("09:00");
+  const [scheduleMode, setScheduleMode] = useState<"now" | "schedule" | "draft">("schedule");
   const [dbPosts, setDbPosts] = useState<Post[]>([]);
   const [saving, setSaving] = useState(false);
 
@@ -226,20 +230,15 @@ export default function SocialCalendar() {
 
               {/* Content */}
               <div>
-                <p className="text-[10px] font-bold uppercase tracking-[0.08em] text-[var(--color-text-3)] mb-2.5">Contenu</p>
+                <p className="text-[10px] font-bold uppercase tracking-[0.08em] text-[var(--color-text-3)] mb-2.5">Contenu (FR)</p>
                 <textarea
                   className="w-full px-3.5 py-3 border border-[var(--color-border)] rounded-lg text-xs leading-relaxed resize-none outline-none focus:border-[var(--color-g-400)] transition-colors"
                   rows={7}
-                  defaultValue={`✅ Hosamine SARL vient de réaliser une intervention de désinsectisation complète à Douala.
-
-🐛 Cafards, mouches, fourmis — éliminés en moins de 3h avec nos produits agréés MINSANTE.
-
-📞 +237 677 550 011
-🌐 hosamine.net
-
-#Hosamine #Hygiène #Douala`}
+                  value={content}
+                  onChange={(e) => setContent(e.target.value)}
+                  placeholder="Rédigez votre publication..."
                 />
-                <p className="text-[10px] text-[var(--color-text-3)] text-right mt-1">328 / 500</p>
+                <p className="text-[10px] text-[var(--color-text-3)] text-right mt-1">{content.length} / 500</p>
               </div>
 
               {/* Media */}
@@ -255,31 +254,39 @@ export default function SocialCalendar() {
               <div>
                 <p className="text-[10px] font-bold uppercase tracking-[0.08em] text-[var(--color-text-3)] mb-2.5">Programmation</p>
                 <div className="flex rounded-lg border border-[var(--color-border)] overflow-hidden mb-3">
-                  {["Maintenant", "Programmer", "Brouillon"].map((opt, i) => (
-                    <button
-                      key={opt}
-                      className={`flex-1 py-2 text-[11px] font-semibold transition-all ${
-                        i === 1
-                          ? "bg-[var(--color-g-100)] text-[var(--color-g-600)]"
-                          : "text-[var(--color-text-3)]"
-                      }`}
-                    >
-                      {opt}
-                    </button>
-                  ))}
+                  {(["now", "schedule", "draft"] as const).map((mode, i) => {
+                    const labels = ["Maintenant", "Programmer", "Brouillon"];
+                    return (
+                      <button
+                        key={mode}
+                        onClick={() => setScheduleMode(mode)}
+                        className={`flex-1 py-2 text-[11px] font-semibold transition-all ${
+                          scheduleMode === mode
+                            ? "bg-[var(--color-g-100)] text-[var(--color-g-600)]"
+                            : "text-[var(--color-text-3)]"
+                        }`}
+                      >
+                        {labels[i]}
+                      </button>
+                    );
+                  })}
                 </div>
-                <div className="flex gap-2">
-                  <input
-                    type="date"
-                    defaultValue="2025-05-11"
-                    className="flex-1 px-3 py-2 border border-[var(--color-border)] rounded-lg text-xs outline-none focus:border-[var(--color-g-400)] transition-colors"
-                  />
-                  <input
-                    type="time"
-                    defaultValue="09:00"
-                    className="w-24 px-3 py-2 border border-[var(--color-border)] rounded-lg text-xs outline-none focus:border-[var(--color-g-400)] transition-colors"
-                  />
-                </div>
+                {scheduleMode === "schedule" && (
+                  <div className="flex gap-2">
+                    <input
+                      type="date"
+                      value={scheduledDate}
+                      onChange={(e) => setScheduledDate(e.target.value)}
+                      className="flex-1 px-3 py-2 border border-[var(--color-border)] rounded-lg text-xs outline-none focus:border-[var(--color-g-400)] transition-colors"
+                    />
+                    <input
+                      type="time"
+                      value={scheduledTime}
+                      onChange={(e) => setScheduledTime(e.target.value)}
+                      className="w-24 px-3 py-2 border border-[var(--color-border)] rounded-lg text-xs outline-none focus:border-[var(--color-g-400)] transition-colors"
+                    />
+                  </div>
+                )}
               </div>
             </div>
 
@@ -291,9 +298,10 @@ export default function SocialCalendar() {
                   await fetch("/api/social/posts", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ content_fr: "", platforms: selectedPlatforms, status: "draft" }),
+                    body: JSON.stringify({ content_fr: content, platforms: selectedPlatforms, status: "draft" }),
                   });
                   setSaving(false);
+                  setContent("");
                 }}
                 className="flex-1 py-2 border border-[var(--color-border)] rounded-lg text-xs font-semibold text-[var(--color-text-2)]"
               >
@@ -302,12 +310,23 @@ export default function SocialCalendar() {
               <button
                 onClick={async () => {
                   setSaving(true);
+                  const scheduled_at = scheduleMode === "schedule"
+                    ? `${scheduledDate}T${scheduledTime}:00`
+                    : scheduleMode === "now"
+                    ? new Date().toISOString()
+                    : null;
                   await fetch("/api/social/posts", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ content_fr: "", platforms: selectedPlatforms, status: "scheduled", scheduled_at: new Date().toISOString() }),
+                    body: JSON.stringify({
+                      content_fr: content,
+                      platforms: selectedPlatforms,
+                      status: scheduleMode === "draft" ? "draft" : "scheduled",
+                      scheduled_at,
+                    }),
                   });
                   setSaving(false);
+                  setContent("");
                   window.location.reload();
                 }}
                 className="flex-1 py-2 rounded-lg bg-[var(--color-g-600)] text-white text-xs font-semibold hover:bg-[var(--color-g-700)] transition-colors"
