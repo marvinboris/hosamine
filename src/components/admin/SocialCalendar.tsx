@@ -323,7 +323,7 @@ export default function SocialCalendar() {
                 <span className="text-[11px] text-[var(--color-text-3)]">7 ce mois</span>
               </div>
               <div className="max-h-[180px] overflow-y-auto divide-y divide-[var(--color-border)]">
-                {MAY_POSTS.filter(p => p.status !== "published").slice(0, 4).map((post, i) => (
+                {posts.filter(p => p.status !== "published").slice(0, 4).map((post, i) => (
                   <div key={i} className="flex items-start gap-2.5 px-5 py-2.5">
                     <div className="flex gap-0.5 mt-0.5 flex-shrink-0">
                       {post.platforms.slice(0, 2).map((p) => (
