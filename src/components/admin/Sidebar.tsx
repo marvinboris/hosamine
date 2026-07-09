@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 interface SidebarProps {
@@ -15,6 +15,11 @@ interface Counts {
   overdueFollowups: number;
   recoveryClients: number;
   scheduledPosts: number;
+}
+
+interface CurrentUser {
+  name: string;
+  role: string;
 }
 
 const ICONS: Record<string, React.ReactNode> = {
@@ -33,13 +38,31 @@ const ICONS: Record<string, React.ReactNode> = {
 
 export default function AdminSidebar({ isOpen, onClose }: SidebarProps) {
   const pathname = usePathname();
+  const router = useRouter();
   const [counts, setCounts] = useState<Counts>({ activeClients: 0, overdueFollowups: 0, recoveryClients: 0, scheduledPosts: 0 });
+  const [user, setUser] = useState<CurrentUser | null>(null);
 
   useEffect(() => {
     fetch("/api/dashboard/stats")
       .then((r) => r.json())
       .then((data: Counts) => setCounts(data));
+    fetch("/api/admin/me")
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data: CurrentUser | null) => setUser(data))
+      .catch(() => setUser(null));
   }, []);
+
+  async function handleLogout() {
+    await fetch("/api/admin/auth", { method: "DELETE" });
+    router.push("/admin/login");
+  }
+
+  const ROLE_LABELS: Record<string, string> = {
+    admin: "Administration",
+    commercial: "Commercial",
+    readonly: "Lecture seule",
+  };
+  const initial = (user?.name ?? "H").charAt(0).toUpperCase();
 
   const NAV = [
     {
@@ -159,15 +182,19 @@ export default function AdminSidebar({ isOpen, onClose }: SidebarProps) {
         {/* User */}
         <div className="px-3 py-4 border-t border-white/8 flex items-center gap-2.5">
           <div className="w-8 h-8 rounded-full bg-[var(--color-g-600)] flex items-center justify-center text-xs font-bold text-white flex-shrink-0">
-            H
+            {initial}
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-xs font-semibold text-white/85 truncate">Hosamine Admin</p>
-            <p className="text-[10px] text-white/55">Administration</p>
+            <p className="text-xs font-semibold text-white/85 truncate">{user?.name ?? "Hosamine Admin"}</p>
+            <p className="text-[10px] text-white/55">{user ? (ROLE_LABELS[user.role] ?? user.role) : "Administration"}</p>
           </div>
-          <Link href="/admin/login" className="text-white/30 hover:text-white/60 transition-colors">
+          <button
+            onClick={handleLogout}
+            aria-label="Se déconnecter"
+            className="text-white/30 hover:text-white/60 transition-colors"
+          >
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
-          </Link>
+          </button>
         </div>
       </aside>
     </>

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createServiceClient } from "@/lib/supabase/server";
+import { requireAuth } from "@/lib/auth";
 
 export async function GET() {
   const db = createServiceClient();
@@ -9,6 +10,9 @@ export async function GET() {
 }
 
 export async function POST(req: NextRequest) {
+  const guard = await requireAuth(req, "can_settings");
+  if (guard instanceof NextResponse) return guard;
+
   const body = await req.json();
   if (!body.name) return NextResponse.json({ error: "name requis." }, { status: 400 });
   const db = createServiceClient();

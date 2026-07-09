@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
-import { Sora, Inter } from "next/font/google";
+import { Outfit, Inter } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
+import { mergeContentOverrides } from "@/lib/content";
 import "../globals.css";
 
-const sora = Sora({
+const outfit = Outfit({
   subsets: ["latin"],
   variable: "--font-display",
   display: "swap",
@@ -39,11 +40,15 @@ export default async function LocaleLayout({
 }) {
   const { locale } = await params;
   const messages = await getMessages();
+  const mergedMessages = await mergeContentOverrides(
+    messages as Record<string, Record<string, unknown>>,
+    locale
+  );
 
   return (
-    <html lang={locale} className={`${sora.variable} ${inter.variable}`}>
+    <html lang={locale} className={`${outfit.variable} ${inter.variable}`}>
       <body>
-        <NextIntlClientProvider messages={messages}>
+        <NextIntlClientProvider messages={mergedMessages}>
           {children}
         </NextIntlClientProvider>
       </body>

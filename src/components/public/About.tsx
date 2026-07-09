@@ -20,7 +20,7 @@ export default function About() {
             <span className="block text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--color-g-500)] mb-3">
               {t("label")}
             </span>
-            <h2 className="font-[var(--font-display)] text-[clamp(1.75rem,3vw,2.5rem)] font-bold leading-snug tracking-tight mb-5 whitespace-pre-line">
+            <h2 className="font-[var(--font-display)] text-[clamp(1.75rem,3vw,2.5rem)] font-black leading-tight tracking-[-0.02em] mb-5 whitespace-pre-line">
               {t("title")}
             </h2>
             <p className="text-[var(--color-text-2)] leading-[1.72] mb-7 text-sm md:text-base">

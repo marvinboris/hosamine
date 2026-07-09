@@ -53,8 +53,18 @@ export default function CRMPipeline() {
   const [loading, setLoading] = useState(true);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [advancing, setAdvancing] = useState<string | null>(null);
+  const [query, setQuery] = useState("");
+  const [stageFilter, setStageFilter] = useState<Stage | "all">("all");
 
   const selected = clients.find((c) => c.id === selectedId) ?? null;
+
+  const q = query.trim().toLowerCase();
+  const matches = (c: CRMClient) =>
+    !q ||
+    c.full_name.toLowerCase().includes(q) ||
+    (c.sector ?? "").toLowerCase().includes(q) ||
+    (c.location ?? "").toLowerCase().includes(q) ||
+    (c.contact_name ?? "").toLowerCase().includes(q);
 
   useEffect(() => {
     fetch("/api/crm/clients")
@@ -102,13 +112,27 @@ export default function CRMPipeline() {
           )}
         </div>
         <div className="ml-auto flex items-center gap-2.5">
-          <div className="flex items-center gap-2 px-3.5 py-1.5 border border-[var(--color-border)] rounded-lg bg-[var(--color-g-50)] text-sm" style={{ color: "var(--color-text-3)" }}>
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-            Rechercher un client...
+          <div className="flex items-center gap-2 px-3.5 py-1.5 border border-[var(--color-border)] rounded-lg bg-[var(--color-g-50)] text-sm focus-within:border-[var(--color-g-500)]">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{ color: "var(--color-text-3)" }}><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Rechercher un client..."
+              className="bg-transparent outline-none w-40 text-sm"
+              style={{ color: "var(--color-text)" }}
+            />
           </div>
-          <button className="px-3.5 py-1.5 border border-[var(--color-border)] rounded-lg text-sm font-semibold" style={{ color: "var(--color-text-2)" }}>
-            Filtrer
-          </button>
+          <select
+            value={stageFilter}
+            onChange={(e) => setStageFilter(e.target.value as Stage | "all")}
+            className="px-3.5 py-1.5 border border-[var(--color-border)] rounded-lg text-sm font-semibold bg-white outline-none focus:border-[var(--color-g-500)]"
+            style={{ color: "var(--color-text-2)" }}
+          >
+            <option value="all">Toutes les étapes</option>
+            {STAGES.map((s) => (
+              <option key={s.key} value={s.key}>{s.label}</option>
+            ))}
+          </select>
           <Link
             href="/admin/crm/new"
             className="px-3.5 py-1.5 rounded-lg text-white text-sm font-semibold hover:opacity-90 transition-opacity"
@@ -129,8 +153,8 @@ export default function CRMPipeline() {
             </div>
           ) : (
             <div className="flex h-full">
-              {STAGES.map((stage) => {
-                const cards = clients.filter((c) => c.stage === stage.key);
+              {STAGES.filter((stage) => stageFilter === "all" || stage.key === stageFilter).map((stage) => {
+                const cards = clients.filter((c) => c.stage === stage.key && matches(c));
                 return (
                   <div
                     key={stage.key}

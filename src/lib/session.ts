@@ -25,10 +25,10 @@ function base64urlToBytes(b64: string): Uint8Array {
 }
 
 async function getKey(): Promise<CryptoKey> {
-  const secret =
-    process.env.ADMIN_SESSION_SECRET ??
-    process.env.ADMIN_PASSWORD ??
-    "hosamine2025";
+  const secret = process.env.ADMIN_SESSION_SECRET;
+  if (!secret) {
+    throw new Error("ADMIN_SESSION_SECRET is not configured.");
+  }
   return crypto.subtle.importKey(
     "raw",
     encoder.encode(secret),

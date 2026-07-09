@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import { createServiceClient } from "@/lib/supabase/server";
+import { requireAuth } from "@/lib/auth";
 
 export async function GET() {
   const db = createServiceClient();
@@ -13,6 +14,9 @@ export async function GET() {
 }
 
 export async function POST(req: NextRequest) {
+  const guard = await requireAuth(req, "can_settings");
+  if (guard instanceof NextResponse) return guard;
+
   const { name, email, password, role_id } = await req.json();
   if (!name || !email || !password) {
     return NextResponse.json({ error: "name, email, password requis." }, { status: 400 });

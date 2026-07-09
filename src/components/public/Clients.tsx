@@ -24,7 +24,7 @@ export default function Clients() {
           <span className="block text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--color-g-500)] mb-3">
             {t("label")}
           </span>
-          <h2 className="font-[var(--font-display)] text-[clamp(1.75rem,3vw,2.5rem)] font-bold leading-snug tracking-tight">
+          <h2 className="font-[var(--font-display)] text-[clamp(1.75rem,3vw,2.5rem)] font-black leading-tight tracking-[-0.02em]">
             {t("title")}
           </h2>
         </div>

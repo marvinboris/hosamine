@@ -96,7 +96,7 @@ export default function Nav() {
           {/* CTA — desktop only */}
           <Link
             href="#contact"
-            className="hidden md:inline-flex items-center px-5 py-2 rounded-[5px] bg-[var(--color-a-500)] text-[oklch(18%_0.08_60)] text-sm font-semibold font-[var(--font-display)] transition-all hover:bg-[var(--color-a-600)] hover:-translate-y-px"
+            className="hidden md:inline-flex items-center h-11 px-6 rounded-lg border-4 border-[var(--color-ink)] bg-[var(--color-brand)] text-white text-xs font-black uppercase tracking-wide font-[var(--font-display)] shadow-brutal"
           >
             {t("cta")}
           </Link>
@@ -134,7 +134,7 @@ export default function Nav() {
             <a
               href="#contact"
               onClick={() => setMenuOpen(false)}
-              className="block w-full text-center py-4 rounded-[5px] bg-[var(--color-a-500)] text-[oklch(18%_0.08_60)] font-semibold font-[var(--font-display)]"
+              className="block w-full text-center py-4 rounded-lg border-4 border-[var(--color-ink)] bg-[var(--color-brand)] text-white font-black uppercase tracking-wide font-[var(--font-display)] shadow-brutal-static"
             >
               {t("cta")}
             </a>

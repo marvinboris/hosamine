@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { createServiceClient } from "@/lib/supabase/server";
+import { requireAuth } from "@/lib/auth";
 
 type Params = { params: Promise<{ section: string }> };
 
@@ -17,6 +19,9 @@ export async function GET(_req: NextRequest, { params }: Params) {
 }
 
 export async function PATCH(req: NextRequest, { params }: Params) {
+  const guard = await requireAuth(req, "can_content");
+  if (guard instanceof NextResponse) return guard;
+
   const { section } = await params;
   const updates: Array<{ key: string; fr?: string; en?: string }> = await req.json();
   const db = createServiceClient();
@@ -38,6 +43,9 @@ export async function PATCH(req: NextRequest, { params }: Params) {
 
   const failed = results.find((r) => r.error);
   if (failed?.error) return NextResponse.json({ error: failed.error.message }, { status: 500 });
+
+  // Public site reads content_blocks in the [locale] layout — revalidate it so edits show.
+  revalidatePath("/", "layout");
 
   return NextResponse.json(results.map((r) => r.data));
 }

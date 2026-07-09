@@ -29,7 +29,7 @@ export default function Hero() {
         </div>
 
         {/* Headline */}
-        <h1 className="font-[var(--font-display)] font-extrabold leading-[1.04] tracking-[-0.035em] text-white mb-6 text-[clamp(2.8rem,8vw,5.2rem)]">
+        <h1 className="font-[var(--font-display)] font-black leading-[1.04] tracking-[-0.035em] text-white mb-6 text-[clamp(2.8rem,8vw,5.2rem)]">
           {t("headline_1")}
           <br />
           {t("headline_2")}
@@ -45,16 +45,16 @@ export default function Hero() {
         </p>
 
         {/* CTAs */}
-        <div className="flex flex-col sm:flex-row gap-3">
+        <div className="flex flex-col sm:flex-row gap-4">
           <a
             href="#services"
-            className="inline-flex items-center justify-center px-7 py-3.5 rounded-[5px] bg-[var(--color-a-500)] text-[oklch(18%_0.08_60)] font-semibold font-[var(--font-display)] text-sm transition-all hover:bg-[var(--color-a-600)] hover:-translate-y-0.5 active:translate-y-0"
+            className="inline-flex items-center justify-center h-14 px-8 rounded-lg border-4 border-[var(--color-ink)] bg-[var(--color-brand)] text-white font-black uppercase tracking-wide font-[var(--font-display)] text-sm shadow-brutal"
           >
             {t("cta_primary")}
           </a>
           <a
             href="#contact"
-            className="inline-flex items-center justify-center px-7 py-3.5 rounded-[5px] border border-white/28 text-white font-[var(--font-display)] font-medium text-sm transition-all hover:border-white/55 hover:bg-white/5"
+            className="inline-flex items-center justify-center h-14 px-8 rounded-lg border-4 border-[var(--color-ink)] bg-white text-[var(--color-ink)] font-black uppercase tracking-wide font-[var(--font-display)] text-sm shadow-brutal"
           >
             {t("cta_secondary")}
           </a>

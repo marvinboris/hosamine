@@ -5,13 +5,17 @@ import Link from "next/link";
 import type { ContentBlock } from "@/lib/db/types";
 
 const SECTION_LABELS: Record<string, string> = {
-  hero:       "Hero — Bannière principale",
-  services:   "Services",
-  about:      "À propos",
-  stats:      "Chiffres clés",
-  cta:        "Appel à l'action",
-  contact:    "Contact",
-  footer:     "Pied de page",
+  nav:          "Navigation",
+  hero:         "Hero — Bannière principale",
+  services:     "Services",
+  stats:        "Chiffres clés",
+  about:        "À propos",
+  clients:      "Clients",
+  testimonials: "Témoignages",
+  partners:     "Partenaires",
+  cta:          "Appel à l'action",
+  contact:      "Contact",
+  footer:       "Pied de page",
 };
 
 export default function ContentListPage() {

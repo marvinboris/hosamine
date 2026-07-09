@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import type { CRMClient, CRMHistory, CRMDocument } from "@/lib/db/types";
 
@@ -19,11 +19,15 @@ const STAGE_LABELS: Record<string, string> = {
 
 export default function ClientDetailPage() {
   const { id } = useParams<{ id: string }>();
+  const router = useRouter();
   const [client, setClient] = useState<CRMClient | null>(null);
   const [history, setHistory] = useState<CRMHistory[]>([]);
   const [documents, setDocuments] = useState<CRMDocument[]>([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [noteText, setNoteText] = useState("");
+  const [noteAmount, setNoteAmount] = useState("");
+  const [addingNote, setAddingNote] = useState(false);
 
   useEffect(() => {
     fetch(`/api/crm/clients/${id}`)
@@ -63,6 +67,39 @@ export default function ClientDetailPage() {
     setSaving(false);
   }
 
+  async function addNote(e: React.FormEvent) {
+    e.preventDefault();
+    if (!noteText.trim()) return;
+    setAddingNote(true);
+    const res = await fetch(`/api/crm/clients/${id}/history`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        action: "Note ajoutée",
+        note: noteText.trim(),
+        amount: noteAmount ? Number(noteAmount.replace(/\s/g, "")) : null,
+      }),
+    });
+    if (res.ok) {
+      const created: CRMHistory = await res.json();
+      setHistory((prev) => [created, ...prev]);
+      setNoteText("");
+      setNoteAmount("");
+    }
+    setAddingNote(false);
+  }
+
+  async function handleDelete() {
+    if (!client) return;
+    if (!confirm(`Supprimer définitivement « ${client.full_name} » ? Cette action est irréversible.`)) return;
+    const res = await fetch(`/api/crm/clients/${id}`, { method: "DELETE" });
+    if (res.ok) {
+      router.push("/admin/crm");
+    } else {
+      alert("Échec de la suppression.");
+    }
+  }
+
   if (loading) return <div className="flex-1 flex items-center justify-center text-sm" style={{ color: "var(--color-text-3)" }}>Chargement...</div>;
   if (!client) return <div className="flex-1 flex items-center justify-center text-sm text-red-600">Client introuvable.</div>;
 
@@ -78,10 +115,16 @@ export default function ClientDetailPage() {
           {client.full_name}
         </span>
         {saving && <span className="text-xs ml-2" style={{ color: "var(--color-text-3)" }}>Sauvegarde...</span>}
-        <div className="ml-auto">
+        <div className="ml-auto flex items-center gap-2">
           <span className="px-3 py-1 rounded-full text-xs font-bold bg-amber-50 text-amber-700">
             {STAGE_LABELS[client.stage] ?? client.stage}
           </span>
+          <button
+            onClick={handleDelete}
+            className="px-3 py-1.5 rounded-lg text-xs font-semibold text-red-600 border border-red-200 bg-red-50 hover:bg-red-100 transition-colors"
+          >
+            Supprimer
+          </button>
         </div>
       </div>
 
@@ -227,6 +270,37 @@ export default function ClientDetailPage() {
           {/* Historique */}
           <div className="bg-white rounded-xl border border-[var(--color-border)] p-5">
             <h2 className="font-[var(--font-display)] text-sm font-bold mb-4" style={{ color: "var(--color-text)" }}>Historique</h2>
+
+            {/* Ajouter une note */}
+            <form onSubmit={addNote} className="mb-5 flex flex-col gap-2">
+              <textarea
+                value={noteText}
+                onChange={(e) => setNoteText(e.target.value)}
+                placeholder="Ajouter une note (appel, paiement, remarque)…"
+                rows={2}
+                className="w-full px-3 py-2 border border-[var(--color-border)] rounded-lg text-xs outline-none focus:border-[var(--color-g-500)] resize-none"
+                style={{ color: "var(--color-text)" }}
+              />
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  inputMode="numeric"
+                  value={noteAmount}
+                  onChange={(e) => setNoteAmount(e.target.value)}
+                  placeholder="Montant XAF (optionnel)"
+                  className="flex-1 px-3 py-2 border border-[var(--color-border)] rounded-lg text-xs outline-none focus:border-[var(--color-g-500)]"
+                  style={{ color: "var(--color-text)" }}
+                />
+                <button
+                  type="submit"
+                  disabled={addingNote || !noteText.trim()}
+                  className="px-4 py-2 rounded-lg text-xs font-semibold bg-[var(--color-g-600)] text-white hover:bg-[var(--color-g-700)] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {addingNote ? "Ajout…" : "Ajouter"}
+                </button>
+              </div>
+            </form>
+
             {history.length === 0 ? (
               <p className="text-xs" style={{ color: "var(--color-text-3)" }}>Aucune activité enregistrée.</p>
             ) : (

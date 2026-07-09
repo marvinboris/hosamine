@@ -25,12 +25,36 @@
   --color-text-2: oklch(46% 0.018 145);
   --color-text-3: oklch(63% 0.012 145);
 
+  /* Brutalist (Vena) — flat saturated brand + ink for offset shadow */
+  --color-ink:         #050C13;
+  --color-brand:       #16A34A;
+  --color-brand-dark:  #047857;
+
   /* Typography */
-  --font-display: 'Sora', system-ui, sans-serif;
+  --font-display: 'Outfit', system-ui, sans-serif;
   --font-body:    'Inter', system-ui, sans-serif;
 
   /* Spacing extras */
   --spacing-nav: 68px;
+}
+
+/* ─── Brutalist offset shadow (Vena signature) ─────────────────── */
+/* Hard 8px offset in ink; press animation moves INTO the shadow.  */
+.shadow-brutal {
+  box-shadow: 8px 8px 0 0 var(--color-ink);
+  transition: transform .2s, box-shadow .2s, background-color .2s;
+}
+.shadow-brutal:hover {
+  transform: translate(4px, 4px);
+  box-shadow: 4px 4px 0 0 var(--color-ink);
+}
+.shadow-brutal:active {
+  transform: translate(6px, 6px);
+  box-shadow: 2px 2px 0 0 var(--color-ink);
+}
+/* Static offset (cards/frames) — no press animation */
+.shadow-brutal-static {
+  box-shadow: 8px 8px 0 0 var(--color-ink);
 }
 
 /* ─── Base ──────────────────────────────────────────────────── */

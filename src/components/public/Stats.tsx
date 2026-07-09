@@ -22,7 +22,7 @@ export default function Stats() {
                 : ""
             } ${i % 2 === 0 && i < stats.length - 1 ? "border-r md:border-r border-white/18" : ""}`}
           >
-            <div className="font-[var(--font-display)] text-[2.8rem] md:text-[3.2rem] font-extrabold text-white leading-none tracking-[-0.04em] mb-2">
+            <div className="font-[var(--font-display)] text-[2.8rem] md:text-[3.2rem] font-black text-white leading-none tracking-[-0.04em] mb-2">
               {s.value}
               {s.suffix && <sup className="text-2xl">{s.suffix}</sup>}
             </div>

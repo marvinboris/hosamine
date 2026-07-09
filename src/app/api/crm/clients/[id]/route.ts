@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createServiceClient } from "@/lib/supabase/server";
+import { requireAuth } from "@/lib/auth";
 import type { Stage } from "@/lib/db/types";
 
 type Params = { params: Promise<{ id: string }> };
@@ -24,6 +25,9 @@ export async function GET(_req: NextRequest, { params }: Params) {
 }
 
 export async function PATCH(req: NextRequest, { params }: Params) {
+  const guard = await requireAuth(req, "can_crm");
+  if (guard instanceof NextResponse) return guard;
+
   const { id } = await params;
   const body = await req.json();
   const db = createServiceClient();
@@ -57,4 +61,17 @@ export async function PATCH(req: NextRequest, { params }: Params) {
   }
 
   return NextResponse.json(data);
+}
+
+export async function DELETE(req: NextRequest, { params }: Params) {
+  const guard = await requireAuth(req, "can_crm");
+  if (guard instanceof NextResponse) return guard;
+
+  const { id } = await params;
+  const db = createServiceClient();
+
+  // crm_history / crm_documents cascade via FK ON DELETE CASCADE (see migration 001).
+  const { error } = await db.from("crm_clients").delete().eq("id", id);
+  if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+  return new NextResponse(null, { status: 204 });
 }

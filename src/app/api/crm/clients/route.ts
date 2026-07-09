@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createServiceClient } from "@/lib/supabase/server";
+import { requireAuth } from "@/lib/auth";
 import type { Stage } from "@/lib/db/types";
 
 export async function GET() {
@@ -14,6 +15,9 @@ export async function GET() {
 }
 
 export async function POST(req: NextRequest) {
+  const guard = await requireAuth(req, "can_crm");
+  if (guard instanceof NextResponse) return guard;
+
   const body = await req.json();
   const db = createServiceClient();
 

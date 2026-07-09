@@ -4,26 +4,31 @@ import { requireAuth } from "@/lib/auth";
 
 type Params = { params: Promise<{ id: string }> };
 
-export async function PATCH(req: NextRequest, { params }: Params) {
+// Add a manual history entry (note / payment) to a client timeline.
+export async function POST(req: NextRequest, { params }: Params) {
   const guard = await requireAuth(req, "can_crm");
   if (guard instanceof NextResponse) return guard;
 
   const { id } = await params;
   const body = await req.json();
+
+  if (!body.action) {
+    return NextResponse.json({ error: "action requise." }, { status: 400 });
+  }
+
   const db = createServiceClient();
-
-  const updates: Record<string, unknown> = {};
-  if ("status" in body) updates.status = body.status;
-  if ("signed_at" in body) updates.signed_at = body.signed_at;
-  if ("file_url" in body) updates.file_url = body.file_url;
-
   const { data, error } = await db
-    .from("crm_documents")
-    .update(updates)
-    .eq("id", id)
+    .from("crm_history")
+    .insert({
+      client_id:  id,
+      action:     body.action,
+      note:       body.note ?? null,
+      amount:     body.amount ?? null,
+      created_by: guard.name,
+    })
     .select()
     .single();
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
-  return NextResponse.json(data);
+  return NextResponse.json(data, { status: 201 });
 }

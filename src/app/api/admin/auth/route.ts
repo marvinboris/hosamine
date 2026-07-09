@@ -6,22 +6,8 @@ import { signSession } from "@/lib/session";
 export async function POST(req: NextRequest) {
   const { email, password } = await req.json();
 
-  // Legacy single-password fallback (if no admin_users table yet)
-  if (!email) {
-    const adminPassword = process.env.ADMIN_PASSWORD ?? "hosamine2025";
-    if (password !== adminPassword) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
-    const session = await signSession({ uid: "legacy", role: "admin", name: "Admin" });
-    const res = NextResponse.json({ ok: true });
-    res.cookies.set("admin_session", session, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "lax",
-      maxAge: 60 * 60 * 24 * 7,
-      path: "/",
-    });
-    return res;
+  if (!email || !password) {
+    return NextResponse.json({ error: "Identifiants incorrects." }, { status: 401 });
   }
 
   const db = createServiceClient();

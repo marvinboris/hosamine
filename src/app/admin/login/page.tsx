@@ -45,7 +45,7 @@ export default function AdminLogin() {
         </div>
 
         <div className="bg-[var(--color-g-800)] rounded-xl p-8 shadow-[0_12px_40px_oklch(10%_0.08_145/0.5)]">
-          <h1 className="font-[var(--font-display)] text-lg font-700 text-white mb-2">
+          <h1 className="font-[var(--font-display)] text-lg font-bold text-white mb-2">
             Espace administration
           </h1>
           <p className="text-sm text-white/70 mb-7">
@@ -87,8 +87,8 @@ export default function AdminLogin() {
 
             <button
               type="submit"
-              disabled={loading}
-              className="w-full py-3 rounded-lg bg-[var(--color-a-500)] text-[oklch(18%_0.08_60)] font-semibold font-[var(--font-display)] text-sm transition-all hover:bg-[var(--color-a-600)] disabled:opacity-60"
+              disabled={loading || !email || !password}
+              className="w-full py-3 rounded-lg bg-[var(--color-a-500)] text-[oklch(18%_0.08_60)] font-semibold font-[var(--font-display)] text-sm transition-all hover:bg-[var(--color-a-600)] disabled:opacity-60 disabled:cursor-not-allowed"
             >
               {loading ? "Connexion…" : "Se connecter"}
             </button>
