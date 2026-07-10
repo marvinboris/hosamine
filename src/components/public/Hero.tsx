@@ -5,7 +5,7 @@ export default function Hero() {
   const t = useTranslations("hero");
 
   return (
-    <section className="relative bg-white pt-[calc(68px+3rem)] pb-16 md:pb-20 lg:pt-[calc(68px+4rem)] overflow-hidden">
+    <section className="relative bg-white pt-[calc(76px+3rem)] pb-16 md:pb-20 lg:pt-[calc(76px+4rem)] overflow-hidden">
       <div className="si grid lg:grid-cols-[1.05fr_0.95fr] gap-12 lg:gap-16 items-center">
         {/* Left: copy */}
         <div>

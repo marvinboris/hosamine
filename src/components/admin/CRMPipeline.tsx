@@ -5,13 +5,13 @@ import Link from "next/link";
 import type { CRMClient, Stage } from "@/lib/db/types";
 
 const STAGES: { key: Stage; label: string; color: string }[] = [
-  { key: "new",         label: "Nouveau client",     color: "bg-blue-500" },
-  { key: "diagnostic",  label: "Diagnostic planifié", color: "bg-green-500" },
-  { key: "quote",       label: "Devis envoyé",        color: "bg-amber-500" },
-  { key: "advance",     label: "Avance reçue",        color: "bg-green-600" },
-  { key: "service",     label: "Prestation",          color: "bg-purple-500" },
+  { key: "new",         label: "Nouveau client",      color: "bg-[var(--color-g-400)]" },
+  { key: "diagnostic",  label: "Diagnostic planifié", color: "bg-[var(--color-g-500)]" },
+  { key: "quote",       label: "Devis envoyé",        color: "bg-[var(--color-a-500)]" },
+  { key: "advance",     label: "Avance reçue",        color: "bg-[var(--color-g-600)]" },
+  { key: "service",     label: "Prestation",          color: "bg-[var(--color-brand)]" },
   { key: "recovery",    label: "Recouvrement",        color: "bg-red-500" },
-  { key: "followup",    label: "Suivi J+7",           color: "bg-green-400" },
+  { key: "followup",    label: "Suivi J+7",           color: "bg-[var(--color-g-700)]" },
 ];
 
 const NEXT_STAGE: Partial<Record<Stage, Stage>> = {
@@ -25,16 +25,10 @@ const NEXT_STAGE: Partial<Record<Stage, Stage>> = {
 };
 
 function serviceBadge(s: string) {
-  const map: Record<string, string> = {
-    "Hygiène":          "bg-green-50 text-green-700",
-    "Phytosanitaire":   "bg-green-50 text-green-700",
-    "Fumigation":       "bg-green-50 text-green-700",
-    "Désinfection":     "bg-blue-50 text-blue-700",
-    "Dératisation":     "bg-green-50 text-green-700",
-    "Désinsectisation": "bg-blue-50 text-blue-700",
-    "Formation":        "bg-amber-50 text-amber-700",
-  };
-  return map[s] ?? "bg-gray-100 text-gray-700";
+  // Formations = amber accent; everything else = brand green tint.
+  return s === "Formation"
+    ? "bg-[var(--color-a-100)] text-[var(--color-a-600)]"
+    : "bg-[var(--color-g-100)] text-[var(--color-g-700)]";
 }
 
 function inferService(client: CRMClient) {
@@ -101,7 +95,8 @@ export default function CRMPipeline() {
     <div className="flex flex-col flex-1 overflow-hidden">
       {/* Topbar */}
       <div className="px-7 py-4 bg-white border-b border-[var(--color-border)] flex items-center gap-4 flex-shrink-0">
-        <div>
+        <div className="flex items-center gap-3">
+          <span className="w-1.5 h-6 rounded-full bg-[var(--color-brand)] flex-shrink-0" />
           <span className="font-[var(--font-display)] text-base font-semibold text-[var(--color-text)]">
             Pipeline Commercial
           </span>
@@ -323,7 +318,7 @@ export default function CRMPipeline() {
               )}
               <Link
                 href={`/admin/crm/${selected.id}`}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-blue-50 text-blue-700 hover:bg-blue-100 transition-colors"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-[var(--color-g-100)] text-[var(--color-g-700)] hover:bg-[var(--color-g-200)] transition-colors"
               >
                 Fiche complète
               </Link>

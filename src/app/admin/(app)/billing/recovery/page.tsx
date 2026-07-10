@@ -25,6 +25,7 @@ export default function RecoveryPage() {
   return (
     <div className="flex flex-col flex-1 overflow-hidden">
       <div className="px-7 py-4 bg-white border-b border-[var(--color-border)] flex items-center gap-3 flex-shrink-0">
+        <span className="w-1.5 h-6 rounded-full bg-[var(--color-brand)] flex-shrink-0" />
         <span className="font-[var(--font-display)] text-base font-semibold" style={{ color: "var(--color-text)" }}>
           Recouvrement
         </span>

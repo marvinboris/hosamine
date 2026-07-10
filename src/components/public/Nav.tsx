@@ -32,8 +32,10 @@ export default function Nav() {
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 h-[68px] flex items-center px-5 md:px-8 lg:px-12 bg-white border-b-2 border-[var(--color-ink)] transition-shadow duration-300 ${
-          scrolled ? "shadow-[0_4px_0_-1px_var(--color-g-100)]" : ""
+        className={`fixed top-0 left-0 right-0 z-50 h-[76px] flex items-center px-5 md:px-8 lg:px-12 bg-white/95 backdrop-blur-md transition-all duration-300 ${
+          scrolled
+            ? "shadow-[0_2px_16px_rgba(5,12,19,0.07)]"
+            : "border-b border-[var(--color-border)]"
         }`}
       >
         {/* Logo */}
@@ -49,12 +51,12 @@ export default function Nav() {
         </Link>
 
         {/* Desktop links */}
-        <ul className="hidden md:flex gap-8 list-none mx-auto">
+        <ul className="hidden md:flex gap-9 lg:gap-11 list-none mx-auto">
           {(["services", "about", "clients", "contact"] as const).map((k) => (
             <li key={k}>
               <a
                 href={`#${k}`}
-                className="text-sm font-semibold text-[var(--color-text-2)] hover:text-[var(--color-brand)] transition-colors"
+                className="text-sm font-medium text-[var(--color-text-2)] hover:text-[var(--color-brand)] transition-colors"
               >
                 {t(k)}
               </a>
@@ -65,15 +67,15 @@ export default function Nav() {
         {/* Right actions */}
         <div className="flex items-center gap-3 ml-auto md:ml-0">
           {/* Lang toggle */}
-          <div className="flex rounded-lg overflow-hidden border-2 border-[var(--color-ink)]">
+          <div className="flex rounded-full overflow-hidden border border-[var(--color-border)] p-0.5 gap-0.5">
             {(["fr", "en"] as const).map((l) => (
               <button
                 key={l}
                 onClick={() => switchLocale(l)}
-                className={`px-2.5 py-1 text-[11px] font-bold tracking-widest uppercase transition-all ${
+                className={`px-2.5 py-1 rounded-full text-[11px] font-bold tracking-widest uppercase transition-all ${
                   locale === l
-                    ? "bg-[var(--color-ink)] text-white"
-                    : "bg-white text-[var(--color-text-3)] hover:text-[var(--color-ink)]"
+                    ? "bg-[var(--color-brand)] text-white"
+                    : "text-[var(--color-text-3)] hover:text-[var(--color-ink)]"
                 }`}
               >
                 {l.toUpperCase()}
@@ -84,7 +86,7 @@ export default function Nav() {
           {/* CTA — desktop only (clean, no offset) */}
           <Link
             href="#contact"
-            className="hidden md:inline-flex items-center h-10 px-5 rounded-lg border-2 border-[var(--color-ink)] bg-[var(--color-brand)] text-white text-xs font-black uppercase tracking-wide font-[var(--font-display)] transition-colors hover:bg-[var(--color-brand-dark)]"
+            className="hidden md:inline-flex items-center h-10 px-5 rounded-lg bg-[var(--color-brand)] text-white text-xs font-bold uppercase tracking-wide font-[var(--font-display)] transition-colors hover:bg-[var(--color-brand-dark)]"
           >
             {t("cta")}
           </Link>
@@ -104,7 +106,7 @@ export default function Nav() {
 
       {/* Mobile menu dropdown (under nav) */}
       {menuOpen && (
-        <div className="fixed top-[68px] left-0 right-0 z-40 bg-white border-b-2 border-[var(--color-ink)] md:hidden">
+        <div className="fixed top-[76px] left-0 right-0 z-40 bg-white border-b border-[var(--color-border)] shadow-[0_8px_16px_rgba(5,12,19,0.06)] md:hidden">
           <ul className="flex flex-col list-none px-5 py-3">
             {(["services", "about", "clients", "contact"] as const).map((k) => (
               <li key={k}>

@@ -11,15 +11,15 @@ const STAGE_LABELS: Record<string, string> = {
 };
 
 const STAGE_COLORS: Record<string, string> = {
-  new: "bg-gray-100 text-gray-600",
-  diagnostic: "bg-blue-50 text-blue-600",
-  quote: "bg-amber-50 text-amber-700",
-  negotiation: "bg-orange-50 text-orange-700",
-  advance: "bg-purple-50 text-purple-700",
-  service: "bg-green-50 text-green-700",
-  recovery: "bg-red-50 text-red-700",
-  followup: "bg-cyan-50 text-cyan-700",
-  done: "bg-emerald-50 text-emerald-700",
+  new:         "bg-[var(--color-g-100)] text-[var(--color-text-2)]",
+  diagnostic:  "bg-[var(--color-g-100)] text-[var(--color-g-600)]",
+  quote:       "bg-[var(--color-a-100)] text-[var(--color-a-600)]",
+  negotiation: "bg-[var(--color-a-100)] text-[var(--color-a-600)]",
+  advance:     "bg-[var(--color-g-100)] text-[var(--color-g-700)]",
+  service:     "bg-[var(--color-g-100)] text-[var(--color-g-700)]",
+  recovery:    "bg-red-50 text-red-700",
+  followup:    "bg-[var(--color-g-100)] text-[var(--color-g-700)]",
+  done:        "bg-emerald-50 text-emerald-700",
 };
 
 export default function CRMListPage() {
@@ -43,6 +43,7 @@ export default function CRMListPage() {
   return (
     <div className="flex flex-col flex-1 overflow-hidden">
       <div className="px-7 py-4 bg-white border-b border-[var(--color-border)] flex items-center gap-3 flex-shrink-0">
+        <span className="w-1.5 h-6 rounded-full bg-[var(--color-brand)] flex-shrink-0" />
         <span className="font-[var(--font-display)] text-base font-semibold" style={{ color: "var(--color-text)" }}>
           Tous les clients
         </span>
