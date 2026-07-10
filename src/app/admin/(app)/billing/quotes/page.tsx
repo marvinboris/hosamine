@@ -21,7 +21,7 @@ export default function QuotesPage() {
 
   return (
     <div className="flex flex-col flex-1 overflow-hidden">
-      <div className="px-7 py-4 bg-white border-b border-[var(--color-border)] flex items-center gap-3 flex-shrink-0">
+      <div className="px-4 md:px-7 py-4 bg-white border-b border-[var(--color-border)] flex items-center gap-3 flex-wrap gap-y-2 flex-shrink-0">
         <span className="w-[10px] h-[34px] rounded-sm bg-[var(--color-brand)] flex-shrink-0" />
         <span className="font-[var(--font-display)] text-xl font-bold" style={{ color: "var(--color-text)" }}>
           Devis Challenge
@@ -32,7 +32,7 @@ export default function QuotesPage() {
           </span>
         )}
         {!loading && (
-          <div className="ml-auto flex items-center gap-6 text-sm">
+          <div className="w-full sm:w-auto sm:ml-auto flex items-center gap-4 sm:gap-6 text-sm flex-wrap">
             <div className="text-right">
               <p className="text-[10px] uppercase tracking-wider font-bold" style={{ color: "var(--color-text-3)" }}>Total devisé</p>
               <p className="font-bold" style={{ color: "var(--color-text)" }}>{totalQuoted.toLocaleString("fr-FR")} XAF</p>
@@ -49,13 +49,13 @@ export default function QuotesPage() {
         )}
       </div>
 
-      <div className="flex-1 overflow-y-auto">
+      <div className="flex-1 overflow-auto">
         {loading ? (
           <p className="text-sm text-center mt-16" style={{ color: "var(--color-text-3)" }}>Chargement...</p>
         ) : clients.length === 0 ? (
           <p className="text-sm text-center mt-16" style={{ color: "var(--color-text-3)" }}>Aucun devis enregistré.</p>
         ) : (
-          <table className="w-full text-sm">
+          <table className="w-full min-w-[760px] text-sm">
             <thead className="sticky top-0 bg-gray-50 border-b border-[var(--color-border)]">
               <tr>
                 {["Client", "Référence", "Montant total", "Avance versée", "Solde", "Délai (j)", ""].map((h) => (

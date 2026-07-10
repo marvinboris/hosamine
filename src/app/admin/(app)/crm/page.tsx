@@ -42,7 +42,7 @@ export default function CRMListPage() {
 
   return (
     <div className="flex flex-col flex-1 overflow-hidden">
-      <div className="px-7 py-4 bg-white border-b border-[var(--color-border)] flex items-center gap-3 flex-shrink-0">
+      <div className="px-4 md:px-7 py-4 bg-white border-b border-[var(--color-border)] flex items-center gap-3 flex-wrap gap-y-2 flex-shrink-0">
         <span className="w-[10px] h-[34px] rounded-sm bg-[var(--color-brand)] flex-shrink-0" />
         <span className="font-[var(--font-display)] text-xl font-bold" style={{ color: "var(--color-text)" }}>
           Tous les clients
@@ -50,13 +50,13 @@ export default function CRMListPage() {
         <span className="text-xs px-2 py-0.5 rounded-full bg-[var(--color-g-100)]" style={{ color: "var(--color-text-3)" }}>
           {clients.length}
         </span>
-        <div className="ml-auto flex items-center gap-2">
+        <div className="w-full sm:w-auto sm:ml-auto flex items-center gap-2">
           <input
             type="search"
             placeholder="Rechercher..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="px-3 py-1.5 border border-[var(--color-border)] rounded-lg text-sm outline-none focus:border-[var(--color-g-400)]"
+            className="flex-1 sm:flex-none min-w-0 px-3 py-1.5 border border-[var(--color-border)] rounded-lg text-sm outline-none focus:border-[var(--color-g-400)]"
             style={{ color: "var(--color-text)" }}
           />
           <Link
@@ -68,11 +68,11 @@ export default function CRMListPage() {
         </div>
       </div>
 
-      <div className="flex-1 overflow-y-auto">
+      <div className="flex-1 overflow-auto">
         {loading ? (
           <p className="text-sm text-center mt-16" style={{ color: "var(--color-text-3)" }}>Chargement...</p>
         ) : (
-          <table className="w-full text-sm">
+          <table className="w-full min-w-[720px] text-sm">
             <thead className="sticky top-0 bg-gray-50 border-b border-[var(--color-border)]">
               <tr>
                 {["Client", "Secteur", "Contact", "Devis", "Étape", ""].map((h) => (

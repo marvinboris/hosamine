@@ -165,7 +165,7 @@ export default function SocialCalendar() {
   return (
     <div className="flex flex-col flex-1 overflow-hidden">
       {/* Topbar */}
-      <div className="px-7 py-4 bg-white border-b border-[var(--color-border)] flex items-center gap-4 flex-shrink-0">
+      <div className="px-4 md:px-7 py-4 bg-white border-b border-[var(--color-border)] flex items-center gap-3 flex-wrap gap-y-2 flex-shrink-0">
         <div className="flex items-center gap-3">
           <button
             onClick={() => setMonth(new Date(year, m - 1, 1))}
@@ -199,9 +199,9 @@ export default function SocialCalendar() {
         </div>
       </div>
 
-      <div className="flex flex-1 overflow-hidden">
+      <div className="flex flex-col lg:flex-row flex-1 overflow-y-auto lg:overflow-hidden">
         {/* Calendar */}
-        <div className="flex-1 overflow-y-auto p-6">
+        <div className="flex-1 overflow-y-auto p-4 md:p-6">
           {/* Legend */}
           <div className="flex items-center gap-5 mb-5 flex-wrap">
             {(Object.entries(PLATFORM_COLORS) as [Platform, typeof PLATFORM_COLORS[Platform]][]).map(([p, c]) => (
@@ -220,14 +220,14 @@ export default function SocialCalendar() {
             ))}
             {cells.map((day, i) => {
               if (!day) {
-                return <div key={`empty-${i}`} className="bg-[oklch(99%_0.004_145)] min-h-[88px]" />;
+                return <div key={`empty-${i}`} className="bg-[oklch(99%_0.004_145)] min-h-[64px] sm:min-h-[88px]" />;
               }
               const dayPosts = posts.filter((p) => p.day === day);
               const isToday = day === today;
               return (
                 <div
                   key={day}
-                  className={`relative min-h-[88px] p-2.5 transition-colors group ${
+                  className={`relative min-h-[64px] sm:min-h-[88px] p-2.5 transition-colors group ${
                     isToday ? "bg-[var(--color-g-50)]" : "bg-white hover:bg-[oklch(99%_0.006_145)]"
                   }`}
                 >
@@ -264,7 +264,7 @@ export default function SocialCalendar() {
 
         {/* Composer */}
         {composerOpen && (
-          <div className="w-[340px] flex-shrink-0 bg-white border-l border-[var(--color-border)] flex flex-col overflow-hidden">
+          <div className="w-full lg:w-[340px] flex-shrink-0 bg-white border-t lg:border-t-0 lg:border-l border-[var(--color-border)] flex flex-col lg:overflow-hidden">
             {/* Header */}
             <div className="flex items-center justify-between px-4 py-3 border-b border-[var(--color-border)] flex-shrink-0">
               <span className="text-xs font-semibold text-[var(--color-g-600)]">

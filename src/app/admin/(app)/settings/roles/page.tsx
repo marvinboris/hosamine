@@ -91,8 +91,8 @@ export default function RolesPage() {
           {loading ? (
             <p className="text-sm" style={{ color: "var(--color-text-3)" }}>Chargement...</p>
           ) : (
-            <div className="bg-white rounded-xl border border-[var(--color-border)] overflow-hidden">
-              <table className="w-full text-sm">
+            <div className="bg-white rounded-xl border border-[var(--color-border)] overflow-x-auto">
+              <table className="w-full min-w-[640px] text-sm">
                 <thead className="border-b border-[var(--color-border)]">
                   <tr>
                     <th className="px-4 py-3 text-left text-[10px] font-bold uppercase tracking-wider" style={{ color: "var(--color-text-3)" }}>Rôle</th>

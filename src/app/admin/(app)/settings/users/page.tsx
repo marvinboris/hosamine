@@ -72,7 +72,7 @@ export default function UsersPage() {
           {/* Create form */}
           <div className="bg-white rounded-xl border border-[var(--color-border)] p-5">
             <h2 className="text-sm font-bold mb-4" style={{ color: "var(--color-text)" }}>Ajouter un utilisateur</h2>
-            <form onSubmit={createUser} className="grid grid-cols-2 gap-3">
+            <form onSubmit={createUser} className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <input required placeholder="Nom complet" value={form.name} onChange={(e) => setForm((p) => ({ ...p, name: e.target.value }))}
                 className="px-3 py-2 border border-[var(--color-border)] rounded-lg text-sm outline-none focus:border-[var(--color-g-400)]" style={{ color: "var(--color-text)" }} />
               <input required type="email" placeholder="Email" value={form.email} onChange={(e) => setForm((p) => ({ ...p, email: e.target.value }))}
@@ -93,11 +93,11 @@ export default function UsersPage() {
           </div>
 
           {/* Users list */}
-          <div className="bg-white rounded-xl border border-[var(--color-border)] overflow-hidden">
+          <div className="bg-white rounded-xl border border-[var(--color-border)] overflow-x-auto">
             {loading ? (
               <p className="text-sm p-5" style={{ color: "var(--color-text-3)" }}>Chargement...</p>
             ) : (
-              <table className="w-full text-sm">
+              <table className="w-full min-w-[560px] text-sm">
                 <thead className="border-b border-[var(--color-border)]">
                   <tr>
                     {["Nom", "Email", "Rôle", "Créé le", ""].map((h) => (

@@ -108,7 +108,7 @@ export default function ClientDetailPage() {
   return (
     <div className="flex flex-col flex-1 overflow-hidden">
       {/* Topbar */}
-      <div className="px-7 py-4 bg-white border-b border-[var(--color-border)] flex items-center gap-3 flex-shrink-0">
+      <div className="px-4 md:px-7 py-4 bg-white border-b border-[var(--color-border)] flex items-center gap-3 flex-wrap gap-y-2 flex-shrink-0">
         <Link href="/admin" className="text-sm" style={{ color: "var(--color-text-3)" }}>Pipeline</Link>
         <span style={{ color: "var(--color-text-3)" }}>/</span>
         <span className="font-[var(--font-display)] text-xl font-bold truncate" style={{ color: "var(--color-text)" }}>
@@ -134,7 +134,7 @@ export default function ClientDetailPage() {
           {/* Infos client */}
           <div className="bg-white rounded-xl border border-[var(--color-border)] p-5">
             <h2 className="font-[var(--font-display)] text-sm font-bold mb-4" style={{ color: "var(--color-text)" }}>Informations client</h2>
-            <div className="grid grid-cols-2 gap-4 text-sm">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
               {[
                 { label: "Nom complet", field: "full_name", value: client.full_name },
                 { label: "Localisation", field: "location", value: client.location ?? "—" },
@@ -176,7 +176,7 @@ export default function ClientDetailPage() {
           {/* Devis */}
           <div className="bg-white rounded-xl border border-[var(--color-border)] p-5">
             <h2 className="font-[var(--font-display)] text-sm font-bold mb-4" style={{ color: "var(--color-text)" }}>Devis Challenge</h2>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {[
                 { label: "Référence", field: "quote_ref", value: client.quote_ref ?? "—" },
                 { label: "Délai recouvrement (jours)", field: "recovery_delay", value: String(client.recovery_delay ?? 30) },
@@ -243,7 +243,7 @@ export default function ClientDetailPage() {
           {/* Suivi J+7 */}
           <div className="bg-white rounded-xl border border-[var(--color-border)] p-5">
             <h2 className="font-[var(--font-display)] text-sm font-bold mb-4" style={{ color: "var(--color-text)" }}>Suivi J+7</h2>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <p className="text-[10px] font-bold uppercase tracking-wider mb-1.5" style={{ color: "var(--color-text-3)" }}>Date de prestation</p>
                 <input

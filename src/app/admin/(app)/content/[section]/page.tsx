@@ -106,7 +106,7 @@ export default function ContentSectionPage() {
         ) : (
           <div className="max-w-4xl mx-auto space-y-4">
             {/* Column headers */}
-            <div className="grid grid-cols-[200px_1fr_1fr] gap-4 px-1">
+            <div className="grid grid-cols-1 md:grid-cols-[200px_1fr_1fr] gap-4 px-1">
               <div />
               <p className="text-[11px] font-bold uppercase tracking-wider" style={{ color: "var(--color-text-3)" }}>
                 🇫🇷 Français
@@ -119,7 +119,7 @@ export default function ContentSectionPage() {
             {blocks.map((block) => {
               const isLong = block.type === "rich_text" || (edits[block.key]?.fr?.length ?? 0) > 80;
               return (
-                <div key={block.key} className="grid grid-cols-[200px_1fr_1fr] gap-4 items-start">
+                <div key={block.key} className="grid grid-cols-1 md:grid-cols-[200px_1fr_1fr] gap-4 items-start">
                   <div className="pt-2.5">
                     <p className="text-xs font-semibold" style={{ color: "var(--color-text)" }}>
                       {KEY_LABELS[block.key] ?? block.key}

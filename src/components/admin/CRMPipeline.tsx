@@ -94,7 +94,7 @@ export default function CRMPipeline() {
   return (
     <div className="flex flex-col flex-1 overflow-hidden">
       {/* Topbar */}
-      <div className="px-7 py-4 bg-white border-b border-[var(--color-border)] flex items-center gap-4 flex-shrink-0">
+      <div className="px-4 md:px-7 py-4 bg-white border-b border-[var(--color-border)] flex items-center gap-3 flex-wrap gap-y-2 flex-shrink-0">
         <div className="flex items-center gap-3">
           <span className="w-[10px] h-[34px] rounded-sm bg-[var(--color-brand)] flex-shrink-0" />
           <span className="font-[var(--font-display)] text-xl font-bold text-[var(--color-text)]">
@@ -106,14 +106,14 @@ export default function CRMPipeline() {
             </span>
           )}
         </div>
-        <div className="ml-auto flex items-center gap-2.5">
-          <div className="flex items-center gap-2 px-3.5 py-1.5 border border-[var(--color-border)] rounded-lg bg-[var(--color-g-50)] text-sm focus-within:border-[var(--color-g-500)]">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{ color: "var(--color-text-3)" }}><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <div className="w-full sm:w-auto sm:ml-auto flex items-center gap-2.5 flex-wrap gap-y-2">
+          <div className="flex items-center gap-2 px-3.5 py-1.5 border border-[var(--color-border)] rounded-lg bg-[var(--color-g-50)] text-sm focus-within:border-[var(--color-g-500)] flex-1 sm:flex-none min-w-0">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{ color: "var(--color-text-3)" }} className="flex-shrink-0"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
             <input
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Rechercher un client..."
-              className="bg-transparent outline-none w-40 text-sm"
+              className="bg-transparent outline-none w-full sm:w-40 text-sm min-w-0"
               style={{ color: "var(--color-text)" }}
             />
           </div>
@@ -214,9 +214,9 @@ export default function CRMPipeline() {
           )}
         </div>
 
-        {/* Detail panel */}
+        {/* Detail panel — side column on desktop, full-screen drawer on mobile */}
         {selected && (
-          <div className="w-[340px] flex-shrink-0 bg-white border-l border-[var(--color-border)] flex flex-col overflow-y-auto">
+          <div className="fixed inset-0 z-40 w-full bg-white flex flex-col overflow-y-auto lg:static lg:z-auto lg:w-[340px] lg:flex-shrink-0 lg:border-l lg:border-[var(--color-border)]">
             <div className="px-5 py-4 border-b border-[var(--color-border)] flex items-start gap-3 flex-shrink-0">
               <div className="w-10 h-10 rounded-xl bg-[var(--color-g-100)] flex items-center justify-center font-[var(--font-display)] font-bold text-[var(--color-g-600)] flex-shrink-0">
                 {selected.full_name.charAt(0)}
@@ -228,6 +228,13 @@ export default function CRMPipeline() {
               <span className="flex-shrink-0 px-2.5 py-1 rounded-full text-[10px] font-bold bg-amber-50 text-amber-700">
                 {STAGES.find((s) => s.key === selected.stage)?.label}
               </span>
+              <button
+                onClick={() => setSelectedId(null)}
+                aria-label="Fermer"
+                className="lg:hidden flex-shrink-0 text-[var(--color-text-3)] hover:text-[var(--color-text)]"
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              </button>
             </div>
 
             <div className="p-5 space-y-5 flex-1">
