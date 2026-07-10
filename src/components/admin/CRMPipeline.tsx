@@ -96,8 +96,8 @@ export default function CRMPipeline() {
       {/* Topbar */}
       <div className="px-7 py-4 bg-white border-b border-[var(--color-border)] flex items-center gap-4 flex-shrink-0">
         <div className="flex items-center gap-3">
-          <span className="w-1.5 h-6 rounded-full bg-[var(--color-brand)] flex-shrink-0" />
-          <span className="font-[var(--font-display)] text-base font-semibold text-[var(--color-text)]">
+          <span className="w-[10px] h-[34px] rounded-sm bg-[var(--color-brand)] flex-shrink-0" />
+          <span className="font-[var(--font-display)] text-xl font-bold text-[var(--color-text)]">
             Pipeline Commercial
           </span>
           {!loading && (

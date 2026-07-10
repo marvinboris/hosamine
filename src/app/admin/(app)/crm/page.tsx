@@ -43,8 +43,8 @@ export default function CRMListPage() {
   return (
     <div className="flex flex-col flex-1 overflow-hidden">
       <div className="px-7 py-4 bg-white border-b border-[var(--color-border)] flex items-center gap-3 flex-shrink-0">
-        <span className="w-1.5 h-6 rounded-full bg-[var(--color-brand)] flex-shrink-0" />
-        <span className="font-[var(--font-display)] text-base font-semibold" style={{ color: "var(--color-text)" }}>
+        <span className="w-[10px] h-[34px] rounded-sm bg-[var(--color-brand)] flex-shrink-0" />
+        <span className="font-[var(--font-display)] text-xl font-bold" style={{ color: "var(--color-text)" }}>
           Tous les clients
         </span>
         <span className="text-xs px-2 py-0.5 rounded-full bg-[var(--color-g-100)]" style={{ color: "var(--color-text-3)" }}>
@@ -73,10 +73,10 @@ export default function CRMListPage() {
           <p className="text-sm text-center mt-16" style={{ color: "var(--color-text-3)" }}>Chargement...</p>
         ) : (
           <table className="w-full text-sm">
-            <thead className="sticky top-0 bg-white border-b border-[var(--color-border)]">
+            <thead className="sticky top-0 bg-gray-50 border-b border-[var(--color-border)]">
               <tr>
                 {["Client", "Secteur", "Contact", "Devis", "Étape", ""].map((h) => (
-                  <th key={h} className="px-5 py-3 text-left text-[10px] font-bold uppercase tracking-wider" style={{ color: "var(--color-text-3)" }}>
+                  <th key={h} className="px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider" style={{ color: "var(--color-text-3)" }}>
                     {h}
                   </th>
                 ))}

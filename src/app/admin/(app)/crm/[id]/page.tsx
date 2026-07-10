@@ -111,7 +111,7 @@ export default function ClientDetailPage() {
       <div className="px-7 py-4 bg-white border-b border-[var(--color-border)] flex items-center gap-3 flex-shrink-0">
         <Link href="/admin" className="text-sm" style={{ color: "var(--color-text-3)" }}>Pipeline</Link>
         <span style={{ color: "var(--color-text-3)" }}>/</span>
-        <span className="font-[var(--font-display)] text-base font-semibold truncate" style={{ color: "var(--color-text)" }}>
+        <span className="font-[var(--font-display)] text-xl font-bold truncate" style={{ color: "var(--color-text)" }}>
           {client.full_name}
         </span>
         {saving && <span className="text-xs ml-2" style={{ color: "var(--color-text-3)" }}>Sauvegarde...</span>}

@@ -54,7 +54,7 @@ export default function NewClientPage() {
           Pipeline
         </Link>
         <span style={{ color: "var(--color-text-3)" }}>/</span>
-        <span className="font-[var(--font-display)] text-base font-semibold" style={{ color: "var(--color-text)" }}>
+        <span className="font-[var(--font-display)] text-xl font-bold" style={{ color: "var(--color-text)" }}>
           Nouveau client
         </span>
       </div>

@@ -84,7 +84,7 @@ export default function ContentSectionPage() {
           Contenu
         </Link>
         <span style={{ color: "var(--color-text-3)" }}>/</span>
-        <span className="font-[var(--font-display)] text-base font-semibold" style={{ color: "var(--color-text)" }}>
+        <span className="font-[var(--font-display)] text-xl font-bold" style={{ color: "var(--color-text)" }}>
           {SECTION_LABELS[section] ?? section}
         </span>
         <div className="ml-auto flex items-center gap-3">
