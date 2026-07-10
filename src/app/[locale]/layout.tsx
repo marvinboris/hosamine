@@ -5,6 +5,10 @@ import { getMessages } from "next-intl/server";
 import { mergeContentOverrides } from "@/lib/content";
 import "../globals.css";
 
+// Content is CMS-driven (content_blocks) — render fresh so admin edits show
+// immediately. Falls back to JSON messages if the DB is unavailable.
+export const dynamic = "force-dynamic";
+
 const outfit = Outfit({
   subsets: ["latin"],
   variable: "--font-display",
